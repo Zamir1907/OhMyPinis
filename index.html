@@ -535,7 +535,7 @@ img{
 /* Skeleton loading buat project images */
 .preview-img {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1 / 1; !important;
   object-fit: cover;
   border: 2px solid var(--ink);
   border-radius: 18px;
@@ -545,11 +545,6 @@ img{
   transition: opacity 0.5s ease, transform 0.3s var(--spring), box-shadow 0.3s var(--ease);
   opacity: 0; /* mulai hidden */
   animation: shimmerProject 1.5s ease-in-out infinite; /* efek loading */
-}
-    @media (max-width: 768px) {
-  .preview-img {
-    aspect-ratio: 1 / 1 !important;
-  }
 }
 
 /* Efek shimmer loading */
@@ -1884,19 +1879,23 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
     marquee.style.scrollbarWidth = "none";
     marquee.addEventListener("scroll", () => {});
 
-    // Biar gambar loading smooth
+// Biar gambar loading smooth
 document.querySelectorAll('.avatar-img').forEach(img => {
-  // Pas gambar mulai loading
   img.style.opacity = '0';
-  
-  // Pas gambar selesai loading
-  img.onload = function() {
-    this.style.opacity = '1';
-    this.style.background = 'none';
-    this.style.animation = 'face 4s ease-in-out infinite';
-  };
-  
-  // Kalau gambar gagal loading
+
+  function showImg() {
+    img.style.opacity = '1';
+    img.style.background = 'none';
+    img.style.animation = 'face 4s ease-in-out infinite';
+  }
+
+  // Kalau gambar udah selesai (dari cache), langsung tampilkan
+  if (img.complete && img.naturalWidth > 0) {
+    showImg();
+  } else {
+    img.onload = showImg;
+  }
+
   img.onerror = function() {
     this.style.background = 'linear-gradient(135deg, #ff7a59, #ffd84d)';
     this.style.animation = 'face 4s ease-in-out infinite';
