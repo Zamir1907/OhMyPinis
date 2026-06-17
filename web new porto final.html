@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zax Tamvan — Portfolio yang nggak diam</title>
+  <meta name="description" content="Portfolio Zax Tamvan: pelajar, tukang ngulik UI/UX, frontend, motion design, Android dev, dan ide random yang kadang jadi project beneran." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17151f;
+      --muted: #625f71;
+      --soft: #fff7e8;
+      --paper: #fffdf7;
+      --line: rgba(23,21,31,.14);
+      --white: #ffffff;
+      --sun: #ffd84d;
+      --orange: #ff7a59;
+      --pink: #ff77b7;
+      --mint: #74efbd;
+      --blue: #68c7ff;
+      --violet: #a58bff;
+      --green: #c8f653;
+      --shadow: 0 24px 60px rgba(23,21,31,.14);
+      --hard: 0 8px 0 rgba(23,21,31,.82);
+      --max: 1180px;
+      --radius: 22px;
+      --ease: cubic-bezier(.2,.9,.2,1);
+      --spring: cubic-bezier(.18,1.4,.28,1);
+    }
+
+    *,*::before,*::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--ink);
+      font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 9% 12%, rgba(255,216,77,.85), transparent 25rem),
+        radial-gradient(circle at 92% 9%, rgba(116,239,189,.72), transparent 24rem),
+        radial-gradient(circle at 70% 55%, rgba(255,119,183,.38), transparent 28rem),
+        linear-gradient(135deg, #fff7e8 0%, #f6fbff 48%, #fff1f8 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed; inset: 0; z-index: -3; pointer-events: none;
+      opacity: .18;
+      background-image: linear-gradient(rgba(23,21,31,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(23,21,31,.13) 1px,transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom,#000 20%,transparent 96%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed; inset: 0; z-index: -2; pointer-events: none; opacity: .15;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.38'/%3E%3C/svg%3E");
+    }
+
+    *{
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+img{
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
+    ::selection { background: var(--sun); color: var(--ink); }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    button { color: inherit; }
+    img, svg { display: block; max-width: 100%; }
+
+    /* ─── SKIP LINK ─── */
+    .skip-link {
+      position: fixed; left: 18px; top: 14px; z-index: 100;
+      padding: 10px 14px; border-radius: 999px;
+      background: var(--ink); color: white;
+      transform: translateY(-150%); transition: transform .2s var(--ease);
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    /* ─── PROGRESS BAR ─── */
+    .progress {
+      position: fixed; inset: 0 0 auto; height: 5px; z-index: 80;
+      transform-origin: left; transform: scaleX(0);
+      background: linear-gradient(90deg,var(--orange),var(--sun),var(--mint),var(--blue),var(--pink));
+    }
+
+    /* ─── CURSOR ─── */
+    .cursor {
+      position: fixed; left: 0; top: 0; width: 18px; height: 18px;
+      z-index: 90; pointer-events: none; border-radius: 50%;
+      border: 2px solid rgba(255,255,255,.9); background: rgba(255,122,89,.7);
+      box-shadow: 0 0 0 9px rgba(255,122,89,.12);
+      transform: translate(-50%,-50%); mix-blend-mode: multiply;
+      transition: width .22s var(--ease),height .22s var(--ease),background .22s var(--ease);
+    }
+    .cursor.is-hover { width: 44px; height: 44px; background: rgba(116,239,189,.55); }
+
+    /* ─── BLOBS ─── */
+    .blob-field { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+    .blob {
+      position: absolute; border-radius: 42% 58% 53% 47% / 48% 37% 63% 52%;
+      filter: blur(8px); opacity: .5;
+      animation: blob 14s var(--ease) infinite alternate;
+    }
+    .blob.one { width: 28rem; height: 24rem; left: -9rem; top: 18rem; background: var(--blue); }
+    .blob.two { width: 23rem; height: 19rem; right: -8rem; top: 47rem; background: var(--pink); animation-delay: -5s; }
+    .blob.three { width: 19rem; height: 17rem; left: 44%; bottom: 5rem; background: var(--green); animation-delay: -8s; }
+    @keyframes blob { to { transform: translate3d(34px,-30px,0) rotate(17deg) scale(1.05); } }
+
+    /* ─── NAV ─── */
+    .nav {
+      position: fixed; inset: 16px 16px auto; z-index: 70;
+      display: flex; justify-content: center; pointer-events: none;
+    }
+    .nav-inner {
+      width: min(var(--max),100%); display: flex; align-items: center;
+      justify-content: space-between; gap: 12px;
+      padding: 10px 12px 10px 14px;
+      border: 1px solid rgba(255,255,255,.74); border-radius: 999px;
+      background: rgba(255,255,255,.62); box-shadow: 0 14px 38px rgba(23,21,31,.12);
+      backdrop-filter: blur(18px); pointer-events: auto;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 10px;
+      min-width: max-content; font-weight: 900;
+    }
+    .brand-mark {
+      width: 40px; height: 40px; display: grid; place-items: center;
+      border: 2px solid var(--ink); border-radius: 14px;
+      background: conic-gradient(from 140deg,var(--sun),var(--mint),var(--blue),var(--pink),var(--sun));
+      box-shadow: 0 5px 0 rgba(23,21,31,.75);
+      font-family: "Fredoka",system-ui,sans-serif; font-size: 20px;
+      transform: rotate(-4deg);
+    }
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-links a {
+      padding: 10px 12px; border-radius: 999px;
+      color: rgba(23,21,31,.68); font-size: 14px; font-weight: 850;
+      transition: .24s var(--ease);
+    }
+    .nav-links a:hover, .nav-links a.is-active {
+      color: var(--ink); background: rgba(255,255,255,.82); transform: translateY(-2px);
+    }
+    .menu-btn {
+      display: none; width: 44px; height: 44px; border: 0; border-radius: 50%;
+      background: var(--ink); color: white; cursor: pointer;
+      box-shadow: 0 6px 0 rgba(23,21,31,.25);
+    }
+
+    /* ─── LAYOUT ─── */
+    .section {
+      position: relative;
+      width: min(var(--max),calc(100% - 36px));
+      margin: 0 auto; padding: 92px 0;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100svh; display: grid;
+      grid-template-columns: minmax(0,1.03fr) minmax(320px,.97fr);
+      align-items: center; gap: 52px;
+      padding-top: 122px; padding-bottom: 54px;
+    }
+    .eyebrow,.chip {
+      width: fit-content; display: inline-flex; align-items: center; gap: 9px;
+      min-height: 34px; padding: 8px 12px;
+      border: 1px solid rgba(23,21,31,.12); border-radius: 999px;
+      background: rgba(255,255,255,.66); color: var(--muted);
+      font-size: 14px; font-weight: 900;
+      box-shadow: 0 8px 24px rgba(23,21,31,.08); backdrop-filter: blur(12px);
+    }
+/* HP */
+@media (max-width: 768px) {
+  .eyebrow,
+  .chip {
+    margin-top: 20px;
+  }
+}
+
+    .ping {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #2bd881; box-shadow: 0 0 0 8px rgba(43,216,129,.14);
+      animation: ping 1.8s infinite;
+    }
+    @keyframes ping {
+      50% { transform: scale(.7); box-shadow: 0 0 0 14px rgba(43,216,129,0); }
+    }
+    h1,h2,h3 {
+      margin: 0;
+      font-family: "Fredoka","Plus Jakarta Sans",system-ui,sans-serif;
+      letter-spacing: 0;
+    }
+    .hero h1 {
+      max-width: 850px; margin-top: 18px;
+      font-size: clamp(50px,8.4vw,116px); line-height: .9;
+    }
+    .gradient-text {
+      background: linear-gradient(90deg,var(--ink),#ff4f7a 32%,#4f7cff 66%,var(--ink));
+      background-size: 240% auto; -webkit-background-clip: text; background-clip: text;
+      color: transparent; animation: textFlow 8s ease-in-out infinite;
+    }
+    @keyframes textFlow { 50% { background-position: 100% center; } }
+    .nickname {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 18px; padding: 11px 16px;
+      border: 2px solid var(--ink); border-radius: 17px;
+      background: var(--ink); color: white; font-weight: 950;
+      transform: rotate(-1.5deg); box-shadow: var(--hard);
+    }
+    .hero-copy {
+      max-width: 650px; margin: 24px 0 0;
+      color: var(--muted); font-size: clamp(18px,2vw,22px);
+      font-weight: 700; line-height: 1.72;
+    }
+    .hero-copy strong { color: var(--ink); }
+    .hero-actions,.socials,.contact-actions,.chip-row {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 13px;
+    }
+    .hero-actions { margin-top: 30px; }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      --btn-bg: var(--sun);
+      position: relative; isolation: isolate;
+      min-height: 52px; display: inline-flex; align-items: center;
+      justify-content: center; gap: 10px; padding: 13px 19px;
+      border: 2px solid var(--ink); border-radius: 999px;
+      background: var(--btn-bg); color: var(--ink); font-weight: 950;
+      cursor: pointer;
+      box-shadow: 0 8px 0 rgba(23,21,31,.82),0 18px 30px rgba(23,21,31,.12);
+      transform: translateY(0);
+      transition: transform .25s var(--spring),box-shadow .25s var(--ease),filter .25s var(--ease);
+      overflow: hidden; touch-action: manipulation;
+    }
+    .btn:hover {
+      transform: translateY(-4px) scale(1.025,.99);
+      box-shadow: 0 12px 0 rgba(23,21,31,.82),0 24px 36px rgba(23,21,31,.18);
+      filter: saturate(1.1);
+    }
+    .btn:active {
+      transform: translateY(5px) scale(.98,.94);
+      box-shadow: 0 3px 0 rgba(23,21,31,.82),0 10px 18px rgba(23,21,31,.1);
+    }
+    .btn.secondary { --btn-bg: white; }
+    .btn.mint { --btn-bg: var(--mint); }
+    .btn.pink { --btn-bg: var(--pink); color: white; }
+    .btn.blue { --btn-bg: var(--blue); }
+    .ripple {
+      position: absolute; z-index: -1; border-radius: 50%; pointer-events: none;
+      background: rgba(255,255,255,.72);
+      transform: translate(-50%,-50%) scale(0);
+      animation: ripple .62s ease-out forwards;
+    }
+    @keyframes ripple { to { opacity: 0; transform: translate(-50%,-50%) scale(8); } }
+
+    /* ─── SOCIALS ─── */
+    .socials { margin-top: 24px; }
+    .social {
+      width: 47px; height: 47px; display: grid; place-items: center;
+      border: 1px solid rgba(23,21,31,.12); border-radius: 16px;
+      background: rgba(255,255,255,.72); box-shadow: 0 8px 22px rgba(23,21,31,.1);
+      font-weight: 950; transition: .25s var(--spring);
+    }
+    .social:hover { background: var(--green); transform: translateY(-6px) rotate(-6deg) scale(1.07); }
+
+    /* ─── HERO VISUAL ─── */
+    .hero-visual {
+      position: relative; min-height: 580px;
+      display: grid; place-items: center; perspective: 1100px;
+    }
+    .desk-card {
+      position: relative; width: min(460px,100%); aspect-ratio: 4/5;
+      padding: 18px; border: 2px solid rgba(23,21,31,.14); border-radius: 34px;
+      background: rgba(255,255,255,.68);
+      box-shadow: var(--shadow),0 12px 0 rgba(23,21,31,.08);
+      backdrop-filter: blur(18px); transform-style: preserve-3d;
+      animation: floaty 5.8s ease-in-out infinite;
+    }
+    @keyframes floaty { 50% { transform: translateY(-14px) rotate(1deg); } }
+    .mini-window {
+      position: relative; height: 100%; overflow: hidden;
+      border: 2px solid var(--ink); border-radius: 26px;
+      background:
+        radial-gradient(circle at 18% 15%,rgba(255,255,255,.92) 0 8%,transparent 9%),
+        linear-gradient(135deg,#7bd5ff,#a58bff 50%,#ff77b7);
+      box-shadow: inset 0 -26px 60px rgba(23,21,31,.12);
+    }
+    .window-bar {
+      height: 48px; display: flex; align-items: center; gap: 8px; padding: 0 16px;
+      border-bottom: 2px solid var(--ink); background: rgba(255,255,255,.75);
+    }
+    .window-bar span { width: 12px; height: 12px; border: 2px solid var(--ink); border-radius: 50%; }
+    .window-bar span:nth-child(1) { background: var(--orange); }
+    .window-bar span:nth-child(2) { background: var(--sun); }
+    .window-bar span:nth-child(3) { background: var(--mint); }
+    .avatar-scene { position: absolute; inset: 48px 0 0; display: grid; place-items: center; }
+    .avatar {
+      position: relative; width: 64%; aspect-ratio: 1;
+      border: 2px solid var(--ink);
+      border-radius: 37% 63% 47% 53% / 54% 42% 58% 46%;
+      background:
+        radial-gradient(circle at 35% 42%,var(--ink) 0 4%,transparent 4.5%),
+        radial-gradient(circle at 63% 42%,var(--ink) 0 4%,transparent 4.5%),
+        radial-gradient(circle at 51% 58%,rgba(255,122,89,.65) 0 4%,transparent 4.5%),
+        linear-gradient(150deg,#ffe0ca,#ffc099);
+      box-shadow: 0 10px 0 rgba(23,21,31,.2);
+      animation: face 4s ease-in-out infinite;
+    }
+    .avatar::before {
+      content: ""; position: absolute;
+      left: 13%; right: 13%; top: -9%; height: 34%;
+      border: 2px solid var(--ink); border-radius: 50% 50% 40% 45%;
+      background: #211e2b; transform: rotate(-3deg);
+    }
+    .avatar::after {
+      content: "</>"; position: absolute;
+      left: 50%; bottom: -45px;
+      transform: translateX(-50%) rotate(-2deg);
+      padding: 9px 14px; border: 2px solid var(--ink); border-radius: 15px;
+      background: var(--sun); box-shadow: 0 6px 0 rgba(23,21,31,.82); font-weight: 950;
+    }
+    @keyframes face {
+      50% { border-radius: 48% 52% 54% 46% / 43% 54% 46% 57%; transform: translateY(-8px); }
+    }
+    .code-lines { position: absolute; left: 24px; right: 24px; bottom: 24px; display: grid; gap: 8px; }
+    .code-lines i {
+      height: 11px; border: 2px solid var(--ink); border-radius: 999px;
+      background: rgba(255,255,255,.65); box-shadow: 0 3px 0 rgba(23,21,31,.15);
+    }
+    .code-lines i:nth-child(1) { width: 76%; }
+    .code-lines i:nth-child(2) { width: 52%; background: var(--mint); }
+    .code-lines i:nth-child(3) { width: 88%; background: var(--sun); }
+
+    /* ─── STICKERS ─── */
+    .sticker,.float-card {
+      position: absolute; z-index: 4; border: 2px solid var(--ink); background: white;
+      box-shadow: 0 7px 0 rgba(23,21,31,.82); font-weight: 950;
+      animation: sticker 4.5s ease-in-out infinite;
+    }
+    .sticker { padding: 10px 13px; border-radius: 17px; }
+    .sticker.one { top: 8%; left: -8%; background: var(--green); }
+    .sticker.two { right: -7%; top: 33%; background: var(--pink); color: white; animation-delay: -1.5s; }
+    .sticker.three { left: 3%; bottom: -4%; background: var(--mint); animation-delay: -2.7s; }
+    @keyframes sticker { 50% { transform: translateY(-10px) rotate(4deg); } }
+    .float-card {
+      width: 76px; height: 76px; display: grid; place-items: center;
+      border-radius: 22px; background: rgba(255,255,255,.8); font-size: 22px;
+    }
+    .float-card.a { top: 5%; right: 7%; }
+    .float-card.b { right: -1%; bottom: 14%; background: var(--blue); animation-delay: -3s; }
+    .float-card.c { left: -2%; bottom: 24%; background: var(--sun); animation-delay: -5s; }
+
+    /* ─── DISCLAIMER ─── */
+    .disclaimer {
+      display: grid; grid-template-columns: auto 1fr auto; gap: 18px;
+      align-items: center; padding: 22px;
+      border: 2px dashed rgba(23,21,31,.35); border-radius: var(--radius);
+      background: rgba(255,255,255,.7); box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+    .disclaimer-badge {
+      width: 58px; height: 58px; display: grid; place-items: center;
+      border: 2px solid var(--ink); border-radius: 19px;
+      background: var(--sun); box-shadow: 0 6px 0 rgba(23,21,31,.82);
+      font-weight: 950; transform: rotate(-5deg);
+    }
+    .disclaimer p { margin: 4px 0 0; color: var(--muted); font-weight: 750; line-height: 1.65; }
+    .tiny-btn {
+      min-width: 44px; height: 44px; border: 2px solid var(--ink); border-radius: 15px;
+      background: var(--mint); box-shadow: 0 5px 0 rgba(23,21,31,.82);
+      cursor: pointer; font-weight: 950; transition: .2s var(--spring);
+    }
+    .tiny-btn:hover { transform: translateY(-3px) rotate(3deg); }
+
+    /* ─── SECTION HEAD ─── */
+    .section-head {
+      display: flex; align-items: end; justify-content: space-between;
+      gap: 24px; margin-bottom: 34px;
+    }
+    .section-kicker { margin-bottom: 10px; color: #fa4f7c; font-weight: 950; letter-spacing: .04em; }
+    .section-title { max-width: 780px; font-size: clamp(34px,5vw,64px); line-height: 1.02; }
+    .section-note { max-width: 430px; margin: 0; color: var(--muted); font-size: 18px; font-weight: 750; line-height: 1.7; }
+
+    /* ─── GLASS ─── */
+    .glass {
+      border: 1px solid rgba(255,255,255,.72);
+      background: rgba(255,255,255,.64); box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    /* ─── ABOUT ─── */
+    .about-grid { display: grid; grid-template-columns: .82fr 1.18fr; gap: 24px; align-items: start; }
+    .sticky-note { position: sticky; top: 112px; padding: 25px; border-radius: var(--radius); transform: rotate(-1deg); }
+    .mini-title { margin-bottom: 12px; font-size: 28px; }
+    .big-number {
+      display: block; margin: 18px 0 10px; color: #fa4f7c;
+      font: 900 clamp(56px,8vw,92px) / 1 "Fredoka",system-ui,sans-serif;
+    }
+    .sticky-note p,.timeline-item p,.skill-card p,.project-card p,.lab-card p,.fact-card p,.faq-panel p,.contact-box p,.gallery-item p {
+      color: var(--muted); font-weight: 720; line-height: 1.65;
+    }
+    .timeline { display: grid; gap: 15px; }
+    .timeline-item {
+      position: relative; display: grid; grid-template-columns: auto 1fr;
+      gap: 16px; padding: 18px;
+      border: 1px solid rgba(23,21,31,.09); border-radius: 22px;
+      background: rgba(255,255,255,.64); transition: .28s var(--spring);
+    }
+    .timeline-item:hover { transform: translateX(8px) rotate(.3deg); box-shadow: 0 18px 40px rgba(23,21,31,.12); }
+    .dot {
+      width: 43px; height: 43px; display: grid; place-items: center;
+      border: 2px solid var(--ink); border-radius: 15px;
+      background: var(--sun); box-shadow: 0 5px 0 rgba(23,21,31,.82); font-weight: 950;
+    }
+
+    /* ─── SKILLS ─── */
+    .skills-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+    .skill-card,.project-card,.lab-card,.fact-card,.gallery-item {
+      position: relative; overflow: hidden;
+      border: 1px solid rgba(23,21,31,.1); border-radius: var(--radius);
+      background: rgba(255,255,255,.66); box-shadow: 0 14px 34px rgba(23,21,31,.1);
+      transition: transform .3s var(--spring),box-shadow .3s var(--ease);
+    }
+    .skill-card:hover,.project-card:hover,.lab-card:hover,.fact-card:hover,.gallery-item:hover {
+      transform: translateY(-9px) rotate(.55deg); box-shadow: 0 28px 60px rgba(23,21,31,.17);
+    }
+    .skill-card { min-height: 226px; padding: 22px; }
+    .skill-top { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+    .skill-icon,.tool-icon {
+      width: 55px; height: 55px; display: grid; place-items: center;
+      border: 2px solid var(--ink); border-radius: 18px;
+      background: var(--mint); box-shadow: 0 6px 0 rgba(23,21,31,.82);
+      font-weight: 950; font-size: 19px;
+    }
+    .badge {
+      display: inline-flex; align-items: center; min-height: 30px; padding: 6px 10px;
+      border-radius: 999px; background: rgba(23,21,31,.08); font-size: 13px; font-weight: 950;
+    }
+    .skill-card h3 { margin-top: 20px; font-size: 25px; }
+    .skill-card p { margin: 8px 0 0; }
+    .meter { display: flex; gap: 6px; margin-top: 18px; }
+    .meter span { flex: 1; height: 10px; border-radius: 999px; background: rgba(23,21,31,.1); overflow: hidden; }
+    .meter span.on { background: linear-gradient(90deg,var(--orange),var(--sun)); }
+
+    /* ─── PROJECTS ─── */
+    .projects-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .project-card { padding: 14px; transform-style: preserve-3d; }
+    .preview {
+      position: relative; height: 215px; overflow: hidden;
+      border: 2px solid var(--ink); border-radius: 18px;
+      background: linear-gradient(135deg,var(--sun),var(--mint),var(--blue));
+    }
+    .preview::before,.preview::after {
+      content: ""; position: absolute; border: 2px solid var(--ink); border-radius: 18px;
+      background: rgba(255,255,255,.78); box-shadow: 0 7px 0 rgba(23,21,31,.22);
+    }
+    .preview::before { width: 64%; height: 46%; left: 18px; top: 22px; }
+    .preview::after { width: 44%; height: 23%; right: 18px; bottom: 24px; background: var(--pink); }
+    .project-card:nth-child(2) .preview { background: linear-gradient(135deg,var(--blue),var(--violet),var(--pink)); }
+    .project-card:nth-child(3) .preview { background: linear-gradient(135deg,var(--orange),var(--sun),var(--green)); }
+    .project-card:nth-child(4) .preview { background: linear-gradient(135deg,var(--violet),var(--blue),var(--mint)); }
+    .project-card:nth-child(5) .preview { background: linear-gradient(135deg,var(--green),var(--mint),var(--blue)); }
+    .project-card:nth-child(6) .preview { background: linear-gradient(135deg,var(--pink),var(--orange),var(--sun)); }
+    .project-body { padding: 18px 6px 6px; }
+    .project-body h3 { font-size: 28px; }
+    .project-meta,.filter-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 18px; }
+    .pill,.filter-btn {
+      display: inline-flex; align-items: center; min-height: 30px; padding: 7px 10px;
+      border-radius: 999px; border: 1px solid rgba(23,21,31,.12);
+      background: rgba(255,255,255,.68); font-size: 13px; font-weight: 950;
+    }
+    .filter-btn { cursor: pointer; border: 2px solid rgba(23,21,31,.22); transition: .2s var(--spring); }
+    .filter-btn:hover,.filter-btn.is-active { border-color: var(--ink); background: var(--sun); transform: translateY(-2px); }
+
+    /* ─── LAB ─── */
+    .lab-wrap { display: grid; grid-template-columns: 1.05fr .95fr; gap: 22px; align-items: stretch; }
+    .lab-card { min-height: 320px; padding: 25px; }
+    .lab-card.featured {
+      display: grid; align-content: space-between;
+      background: linear-gradient(135deg,rgba(255,216,77,.74),rgba(116,239,189,.58)),rgba(255,255,255,.78);
+    }
+    .chaos-panel { display: grid; gap: 16px; }
+    .slider-row { display: grid; gap: 10px; }
+    .slider-row label { font-weight: 950; }
+    input[type="range"] { width: 100%; accent-color: #fa4f7c; }
+    .chaos-output {
+      min-height: 116px; padding: 18px;
+      border: 2px solid var(--ink); border-radius: 18px; background: white;
+      box-shadow: 0 7px 0 rgba(23,21,31,.82);
+      font-size: 22px; font-family: "Fredoka",system-ui,sans-serif; line-height: 1.25;
+    }
+
+    /* ─── TOOLS MARQUEE ─── */
+    .tools-marquee {
+      overflow: hidden; border: 1px solid rgba(255,255,255,.76); border-radius: var(--radius);
+      background: rgba(255,255,255,.58); box-shadow: var(--shadow);
+      cursor: grab;
+    }
+    .tools-marquee:active { cursor: grabbing; }
+    .tools-track {
+      width: max-content; display: flex; gap: 14px; padding: 18px;
+      animation: marquee 32s linear infinite;
+      user-select: none;
+    }
+    .tools-marquee.is-dragging .tools-track { animation-play-state: paused; }
+    .tools-marquee:hover .tools-track { animation-play-state: paused; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+    .tool-card {
+      width: 210px; min-height: 150px; display: grid; align-content: start;
+      gap: 10px; padding: 18px; border: 1px solid rgba(23,21,31,.1); border-radius: 20px;
+      background: rgba(255,255,255,.74); flex-shrink: 0;
+    }
+
+    /* ─── GALLERY ─── */
+    .gallery-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 14px; }
+    .gallery-item {
+      min-height: 190px; display: flex; flex-direction: column; justify-content: end;
+      padding: 16px; border: 2px solid rgba(23,21,31,.12);
+      background: radial-gradient(circle at 24% 20%,rgba(255,255,255,.86) 0 12%,transparent 13%),linear-gradient(135deg,var(--sun),var(--pink));
+    }
+    .gallery-item:nth-child(2) { grid-column: span 2; background: linear-gradient(135deg,var(--mint),var(--blue)); }
+    .gallery-item:nth-child(3) { grid-column: span 2; background: linear-gradient(135deg,var(--violet),var(--pink)); }
+    .gallery-item:nth-child(4) { background: linear-gradient(135deg,var(--green),var(--sun)); }
+    .gallery-item:nth-child(5) { grid-column: span 3; background: linear-gradient(135deg,var(--orange),var(--pink),var(--violet)); }
+    .gallery-item:nth-child(6) { grid-column: span 3; background: linear-gradient(135deg,var(--blue),var(--mint),var(--sun)); }
+    .gallery-label {
+      width: fit-content; padding: 8px 11px; border: 2px solid var(--ink); border-radius: 14px;
+      background: white; box-shadow: 0 5px 0 rgba(23,21,31,.82); font-weight: 950;
+    }
+
+    /* ─── FACTS ─── */
+    .facts-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+    .fact-card { min-height: 220px; padding: 22px; }
+    .fact-card strong {
+      display: block; color: #fa4f7c;
+      font-family: "Fredoka",system-ui,sans-serif;
+      font-size: clamp(48px,6vw,76px); line-height: 1;
+    }
+
+    /* ─── FAQ ─── */
+    .faq-list { display: grid; gap: 12px; }
+    .faq-item {
+      overflow: hidden; border: 1px solid rgba(23,21,31,.1); border-radius: 20px;
+      background: rgba(255,255,255,.66); box-shadow: 0 12px 30px rgba(23,21,31,.08);
+    }
+    .faq-btn {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 18px 20px; border: 0; background: transparent;
+      text-align: left; cursor: pointer; font-weight: 950;
+    }
+    .faq-plus {
+      width: 36px; height: 36px; flex: 0 0 auto; display: grid; place-items: center;
+      border: 2px solid var(--ink); border-radius: 12px;
+      background: var(--sun); box-shadow: 0 4px 0 rgba(23,21,31,.82);
+      transition: .22s var(--spring);
+    }
+    .faq-item.is-open .faq-plus { transform: rotate(45deg); background: var(--mint); }
+    .faq-panel { max-height: 0; overflow: hidden; transition: max-height .3s var(--ease); }
+    .faq-panel p { margin: 0; padding: 0 20px 19px; }
+
+    /* ─── CONTACT ─── */
+    .contact-box {
+      display: grid; grid-template-columns: 1fr .9fr; gap: 28px; align-items: start;
+      padding: 28px; border: 2px solid rgba(23,21,31,.12); border-radius: 30px;
+      background: rgba(255,255,255,.7); box-shadow: var(--shadow); backdrop-filter: blur(18px);
+    }
+    .contact-box h2 { max-width: 640px; font-size: clamp(38px,6vw,74px); line-height: .96; }
+    .contact-form { display: grid; gap: 12px; }
+    .field {
+      width: 100%; min-height: 54px; padding: 15px 16px;
+      border: 2px solid rgba(23,21,31,.17); border-radius: 18px;
+      background: rgba(255,255,255,.78); color: var(--ink); outline: 0;
+      transition: .22s var(--ease);
+    }
+    textarea.field { min-height: 150px; resize: vertical; }
+    .field:focus { border-color: var(--ink); box-shadow: 0 0 0 5px rgba(255,216,77,.35); background: white; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      width: min(var(--max),calc(100% - 36px));
+      display: flex; justify-content: space-between; gap: 16px;
+      margin: 0 auto; padding: 32px 0 42px;
+      color: var(--muted); font-weight: 800;
+    }
+    footer a { font-weight: 950; color: var(--ink); }
+
+    /* ─── CONFETTI ─── */
+    .confetti {
+      position: fixed; z-index: 100; width: 10px; height: 14px;
+      border: 1px solid rgba(23,21,31,.18); border-radius: 3px; pointer-events: none;
+      animation: confetti .95s ease-out forwards;
+    }
+    @keyframes confetti { to { opacity: 0; transform: translate(var(--x),var(--y)) rotate(620deg); } }
+
+    /* ─── REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(22px) scale(.98); transition: opacity .65s var(--ease),transform .65s var(--ease); }
+    .reveal.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+
+    /* ─── SCROLL HINT ─── */
+    .scroll-hint {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 28px; color: var(--muted); font-size: 14px; font-weight: 750;
+      animation: bounceY 2s ease-in-out infinite;
+    }
+    .scroll-hint svg { flex-shrink: 0; }
+    @keyframes bounceY { 50% { transform: translateY(6px); } }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1020px) {
+      .hero,.about-grid,.lab-wrap,.contact-box { grid-template-columns: 1fr; }
+      .hero { padding-top: 116px; }
+      .hero-visual { min-height: 500px; }
+      .section-head { align-items: start; flex-direction: column; }
+      .skills-grid,.facts-grid { grid-template-columns: repeat(2,1fr); }
+      .projects-grid { grid-template-columns: repeat(2,1fr); }
+      .sticky-note { position: relative; top: auto; }
+    }
+
+    @media (max-width: 780px) {
+      .nav { inset: 12px 12px auto; }
+      .nav-inner { border-radius: 24px; }
+      .menu-btn { display: grid; place-items: center; }
+      .nav-links {
+        position: absolute; left: 0; right: 0; top: calc(100% + 10px);
+        display: grid; padding: 10px;
+        border: 1px solid rgba(255,255,255,.76); border-radius: 24px;
+        background: rgba(255,255,255,.9); box-shadow: var(--shadow);
+        transform: translateY(-10px); opacity: 0; visibility: hidden; pointer-events: none;
+        transition: .22s var(--ease);
+      }
+      .nav-links.is-open { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
+      .nav-links a { padding: 13px 14px; }
+      .section { width: min(100% - 26px,var(--max)); padding: 70px 0; }
+      .hero { gap: 28px; }
+      .hero h1 { font-size: clamp(48px,16vw,78px); }
+      .hero-visual { min-height: 420px; }
+      .sticker.one { left: 0; }
+      .sticker.two { right: 0; }
+      .disclaimer { grid-template-columns: 1fr; }
+      .skills-grid,.facts-grid,.gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item,.gallery-item:nth-child(n) { grid-column: auto; min-height: 170px; }
+      footer { flex-direction: column; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 520px) {
+      .brand span:last-child { display: none; }
+      .hero-copy { font-size: 17px; }
+      .hero-actions .btn,.contact-actions .btn,.contact-form .btn { width: 100%; }
+      .desk-card { border-radius: 28px; }
+      .float-card { display: none; }
+      .timeline-item { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,*::before,*::after {
+        scroll-behavior: auto !important;
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+      }
+      .cursor { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Lewati ke konten</a>
+  <div class="progress" id="progress"></div>
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="blob-field" aria-hidden="true">
+    <span class="blob one"></span>
+    <span class="blob two"></span>
+    <span class="blob three"></span>
+  </div>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand magnetic" href="#home" aria-label="Zax Tamvan, balik ke awal">
+        <span class="brand-mark">Z</span>
+        <span>Zax Tamvan</span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Navigasi utama">
+        <a href="#about">Cerita</a>
+        <a href="#skills">Skill</a>
+        <a href="#projects">Project</a>
+        <a href="#lab">Lab</a>
+        <a href="#contact">Kontak</a>
+      </nav>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Buka menu" aria-expanded="false">=</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ═══ HERO ═══ -->
+    <section class="section hero" id="home">
+      <div class="hero-text">
+        <div class="eyebrow reveal"><span class="ping"></span> Lagi ngulik, lagi eksperimen, lagi penasaran.</div>
+        <h1 class="reveal">Halo, aku <span class="gradient-text">Zax Tamvan</span>.</h1>
+        <div class="nickname reveal">pelajar + tukang oprek interface 🔧</div>
+        <p class="hero-copy reveal">
+          Aku suka bikin website yang terasa hidup, bukan sekedar rapi.
+          Kadang mulai dari niat sederhana, berakhir dengan debat batin soal
+          <strong>margin 2 pixel</strong>, timing easing animasi,
+          dan kenapa tombol ini rasanya belum cukup "klik-able".
+        </p>
+        <div class="hero-actions reveal">
+          <a class="btn mint magnetic" href="#projects">Lihat hasil ngulik</a>
+          <button class="btn secondary magnetic confetti-btn" type="button">Kasih efek dulu ✨</button>
+        </div>
+        <div class="socials reveal" aria-label="Link sosial">
+          <a class="social" href="#" aria-label="Instagram">IG</a>
+          <a class="social" href="#" aria-label="GitHub">GH</a>
+          <a class="social" href="#" aria-label="TikTok">TT</a>
+          <a class="social" href="#" aria-label="YouTube">YT</a>
+          <a class="social" href="#" aria-label="Email">@</a>
+        </div>
+        <div class="scroll-hint reveal" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          scroll ke bawah, ada yang seru
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" aria-label="Ilustrasi kreatif Zax sedang ngoding">
+        <article class="desk-card tilt">
+          <div class="mini-window">
+            <div class="window-bar"><span></span><span></span><span></span></div>
+            <div class="avatar-scene">
+              <div class="avatar" aria-hidden="true"></div>
+            </div>
+            <div class="code-lines" aria-hidden="true"><i></i><i></i><i></i></div>
+          </div>
+          <span class="sticker one">CSS dulu</span>
+          <span class="sticker two">bug? 👀</span>
+          <span class="sticker three">revisi dikit lagi</span>
+        </article>
+        <span class="float-card a">UI</span>
+        <span class="float-card b">JS</span>
+        <span class="float-card c">UX</span>
+      </div>
+    </section>
+
+    <!-- ═══ DISCLAIMER ═══ -->
+    <section class="section" aria-label="Disclaimer santai">
+      <div class="disclaimer reveal">
+        <span class="disclaimer-badge" aria-hidden="true">⚠️</span>
+        <div>
+          <h2 class="mini-title">Disclaimer dulu ya, jangan kabur.</h2>
+          <p>
+            Website ini bukan dokumen resmi, bukan CV yang pakai jas, dan <em>bukan</em> dibuat AI—
+            meski kadang aku sendiri nggak percaya hasilnya. Isinya campuran antara yang beneran,
+            yang dilebih-lebihin dikit biar seru, dan yapping tengah malam yang somehow masih
+            terdengar masuk akal. Jadi kalau ada bagian yang keliatan terlalu dewa—
+            itu mungkin bagian yang dilebih-lebihin. Atau mungkin beneran. Tebak aja sendiri. 🙃
+          </p>
+        </div>
+        <button class="tiny-btn confetti-btn" type="button" aria-label="Setuju dan munculkan konfeti">OK!</button>
+      </div>
+    </section>
+
+    <!-- ═══ ABOUT ═══ -->
+    <section class="section" id="about">
+      <div class="section-head reveal">
+        <div>
+          <div class="section-kicker">CERITA SINGKAT</div>
+          <h2 class="section-title">Aku tipe orang yang lihat animasi keren lalu langsung buka DevTools.</h2>
+        </div>
+        <p class="section-note">Belajarnya banyak dari bongkar-bongkar kode, coba ulang, error dulu, lalu pura-pura tenang pas ketemu solusinya.</p>
+      </div>
+
+      <div class="about-grid">
+        <aside class="sticky-note glass reveal">
+          <h3 class="mini-title">Mode belajar:</h3>
+          <span class="big-number">otodidak</span>
+          <p>
+            Aku senang eksperimen. Kalau ada design, animasi, atau interaksi
+            yang kelihatan menarik, biasanya aku simpan dulu, bongkar pelan-pelan,
+            lalu bikin versi yang lebih "aku banget".
+          </p>
+          <div class="chip-row">
+            <span class="chip">perfeksionis kecil</span>
+            <span class="chip">suka motion</span>
+            <span class="chip">anti hambar</span>
+          </div>
+        </aside>
+
+        <div class="timeline">
+          <article class="timeline-item reveal">
+            <span class="dot">01</span>
+            <div>
+              <h3>Mulai dari rasa penasaran</h3>
+              <p>Awalnya cuma pengin tahu kenapa website bisa gerak. Terus kebablasan sampai CSS transition terasa seperti mainan wajib dan easing animation jadi topik obrolan serius.</p>
+            </div>
+          </article>
+          <article class="timeline-item reveal">
+            <span class="dot">02</span>
+            <div>
+              <h3>Bongkar, pahami, remix</h3>
+              <p>Aku sering belajar dari kode orang lain. Bukan cuma copas, tapi dicari logikanya, diacak sedikit, lalu dibuat versi sendiri yang rasanya beda. Ini serius, bukan curi-curi.</p>
+            </div>
+          </article>
+          <article class="timeline-item reveal">
+            <span class="dot">03</span>
+            <div>
+              <h3>Detail kecil itu bahaya (banget)</h3>
+              <p>Niatnya cuma rapihin satu section. Tiba-tiba sudah 2 jam ngatur shadow, radius, delay animasi, rasa tombol saat diklik, dan kenapa warna ini nggak cukup "pop".</p>
+            </div>
+          </article>
+          <article class="timeline-item reveal">
+            <span class="dot">04</span>
+            <div>
+              <h3>Sekarang lagi eksplor banyak hal</h3>
+              <p>Frontend, UI/UX, creative coding, Android development, content creation, dan ide-ide random yang kadang muncul persis saat laptop mau ditutup jam 2 pagi.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SKILLS ═══ -->
+    <section class="section" id="skills">
+      <div class="section-head reveal">
+        <div>
+          <div class="section-kicker">SKILL YANG SERING DIPAKAI</div>
+          <h2 class="section-title">Bukan superpower, tapi lumayan buat menyelamatkan layar kosong.</h2>
+        </div>
+        <p class="section-note">Levelnya bukan angka sakral. Ini cuma gambaran bagian mana yang paling sering aku ulik dan kadang bikin aku lupa makan.</p>
+      </div>
+
+      <div class="skills-grid">
+        <article class="skill-card reveal">
+          <div class="skill-top"><span class="skill-icon">UI</span><span class="badge">visual-first</span></div>
+          <h3>UI Design</h3>
+          <p>Layout, warna, hierarchy, komponen, dan rasa visual yang nggak kaku. Kalau ada yang kurang simetris 1px, aku bisa lihat.</p>
+          <div class="meter" aria-label="Level UI Design 4 dari 5"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
+        </article>
+        <article class="skill-card reveal">
+          <div class="skill-top"><span class="skill-icon">UX</span><span class="badge">human mode</span></div>
+          <h3>UX Thinking</h3>
+          <p>Mikirin alur, kebiasaan user, dan bagian yang bikin orang bilang "oh enak juga"—bukan "ini tombolnya di mana?"</p>
+          <div class="meter" aria-label="Level UX Thinking 4 dari 5"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
+        </article>
+        <article class="skill-card reveal">
+          <div class="skill-top"><span class="skill-icon">{ }</span><span class="badge">vanilla</span></div>
+          <h3>Frontend</h3>
+          <p>HTML, CSS, JavaScript, responsive layout, aksesibilitas, dan performa ringan. Nggak pakai framework? Justru lebih seru.</p>
+          <div class="meter" aria-label="Level Frontend 4 dari 5"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
+        </article>
+        <article class="skill-card reveal">
+          <div class="skill-top"><span class="skill-icon">MV</span><span class="badge">bouncy ✨</span></div>
+          <h3>Motion Design</h3>
+          <p>Hover, reveal, spring animation, transisi, dan micro interaction yang ada alasannya. Bukan sekedar gerak-gerak doang.</p>
+          <div class="meter" aria-label="Level Motion 4 dari 5"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
+        </article>
+        <article class="skill-card reveal">
+          <div class="skill-top"><span class="skill-icon">📱</span><span class="badge">mobile-first</span></div>
+          <h3>Android Dev</h3>
+          <p>Ngulik Java, bikin app yang bisa diinstal beneran. Pernah bikin simulasi UI banking yang kayak app sungguhan.</p>
+          <div class="meter" aria-label="Level Android 3 dari 5"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div>
+        </article>
+        <article class="skill-card reveal">
+          <div class="skill-top"><span class="skill-icon">Py</span><span class="badge">scripting</span></div>
+          <h3>Python</h3>
+          <p>Automasi, script random yang entah kenapa berguna, dan eksperimen kecil yang kadang berakhir jadi project sungguhan.</p>
+          <div class="meter" aria-label="Level Python 3 dari 5"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div>
+        </article>
+        <article class="skill-card reveal">
+          <div class="skill-top"><span class="skill-icon">🎥</span><span class="badge">storytelling</span></div>
+          <h3>Content Creation</h3>
+          <p>YouTube, TikTok, dan konten visual yang ada konsepnya. Karena ngedit video itu ternyata mirip ngulik animasi: detail mulu.</p>
+          <div class="meter" aria-label="Level Content 3 dari 5"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div>
+        </article>
+        <article class="skill-card reveal">
+          <div class="skill-top"><span class="skill-icon">🔍</span><span class="badge">growth</span></div>
+          <h3>SEO & Strategy</h3>
+          <p>Bikin konten yang nggak cuma bagus, tapi juga ketemu sama orang yang tepat. SEO itu kayak puzzle yang nggak ada tutorialnya.</p>
+          <div class="meter" aria-label="Level SEO 3 dari 5"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═══ PROJECTS ═══ -->
+    <section class="section" id="projects">
+      <div class="section-head reveal">
+        <div>
+          <div class="section-kicker">PROJECT / EKSPERIMEN</div>
+          <h2 class="section-title">Beberapa tempat di mana ide random berubah jadi sesuatu yang bisa diklik.</h2>
+        </div>
+        <p class="section-note">Link masih placeholder—nanti bisa diganti demo asli, repo, atau video proses. Tapi idenya udah real.</p>
+      </div>
+
+      <div class="filter-row reveal" aria-label="Filter project">
+        <button class="filter-btn is-active" type="button" data-filter="all">Semua</button>
+        <button class="filter-btn" type="button" data-filter="web">Web</button>
+        <button class="filter-btn" type="button" data-filter="ui">UI</button>
+        <button class="filter-btn" type="button" data-filter="android">Android</button>
+  
+      </div>
+
+      <div class="projects-grid">
+        <article class="project-card tilt reveal" data-tags="web ui">
+          <div class="preview" aria-hidden="true"></div>
+          <div class="project-body">
+            <h3>Zax Archive</h3>
+            <p>Tempat nyimpen dan ngearsipkan semua eksperimen visual, snippet kode, dan ide-ide yang terlalu sayang untuk dihapus.</p>
+            <div class="project-meta"><span class="pill">Web</span><span class="pill">UI</span><span class="pill">Personal</span></div>
+            <a href="#" class="btn mint magnetic">Intip demo</a>
+          </div>
+        </article>
+        <article class="project-card tilt reveal" data-tags="ui android">
+          <div class="preview" aria-hidden="true"></div>
+          <div class="project-body">
+            <h3>Simulasi UI Banking</h3>
+            <p>App Android yang tampilannya kayak banking beneran. Bikinnya waktu penasaran: "emang bisa se-clean ini pakai Java?"</p>
+            <div class="project-meta"><span class="pill">Android</span><span class="pill">Java</span><span class="pill">UI Design</span></div>
+            <a href="#" class="btn mint magnetic">Intip demo</a>
+          </div>
+        </article>
+        <article class="project-card tilt reveal" data-tags="web ui motion">
+          <div class="preview" aria-hidden="true"></div>
+          <div class="project-body">
+            <h3>Landing Page Banyak Tingkah</h3>
+            <p>Halaman promosi yang nggak cuma rapi, tapi punya hover drama, sticker mengambang, dan transisi yang punya niat.</p>
+            <div class="project-meta"><span class="pill">Web</span><span class="pill">CSS</span><span class="pill">Motion</span></div>
+            <a href="#" class="btn mint magnetic">Intip demo</a>
+          </div>
+        </article>
+        <article class="project-card tilt reveal" data-tags="python">
+          <div class="preview" aria-hidden="true"></div>
+          <div class="project-body">
+            <h3>Script Python Random</h3>
+            <p>Kumpulan script automasi kecil yang awalnya "buat iseng", terus kepake beneran. Beberapa berguna, beberapa aneh, semua ada alasannya.</p>
+            <div class="project-meta"><span class="pill">Python</span><span class="pill">Automasi</span><span class="pill">Scripting</span></div>
+            <a href="#" class="btn mint magnetic">Intip repo</a>
+          </div>
+        </article>
+        <article class="project-card tilt reveal" data-tags="ui web">
+          <div class="preview" aria-hidden="true"></div>
+          <div class="project-body">
+            <h3>Dashboard Anti Pusing</h3>
+            <p>Eksperimen dashboard yang tetap padat, tapi informasi utamanya nggak ngajak main petak umpet sama user.</p>
+            <div class="project-meta"><span class="pill">Dashboard</span><span class="pill">UX</span><span class="pill">JS</span></div>
+            <a href="#" class="btn mint magnetic">Intip demo</a>
+          </div>
+        </article>
+        <article class="project-card tilt reveal" data-tags="motion web">
+          <div class="preview" aria-hidden="true"></div>
+          <div class="project-body">
+            <h3>Motion Playground</h3>
+            <p>Tempat ngetes timing spring, reveal animation, parallax, dan efek kecil yang bikin halaman terasa lebih hidup dari seharusnya.</p>
+            <div class="project-meta"><span class="pill">Creative</span><span class="pill">CSS</span><span class="pill">Fun</span></div>
+            <a href="#" class="btn mint magnetic">Intip demo</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═══ LAB ═══ -->
+    <section class="section" id="lab">
+      <div class="section-head reveal">
+        <div>
+          <div class="section-kicker">ZAX LAB</div>
+          <h2 class="section-title">Bagian interaktif kecil, karena portfolio yang diam itu kadang terlalu sopan.</h2>
+        </div>
+        <p class="section-note">Geser slider-nya. Ini bukan fitur penting, tapi vibes-nya penting banget.</p>
+      </div>
+
+      <div class="lab-wrap">
+        <article class="lab-card featured reveal">
+          <div>
+            <h3 class="mini-title">Chaos meter 🌡️</h3>
+            <p>Atur kadar "ngulik tengah malam" dan lihat kalimat random yang muncul. Akurat? Sangat mungkin. Menghibur? Semoga iya.</p>
+          </div>
+          <div class="chaos-panel">
+            <div class="slider-row">
+              <label for="chaosRange">Kadar eksperimen: <span id="chaosValue">63</span>%</label>
+              <input id="chaosRange" type="range" min="0" max="100" value="63" />
+            </div>
+            <div class="chaos-output" id="chaosOutput">Mulai rawan. Warna sudah diganti tiga kali, tapi "katanya ini eksplorasi".</div>
+          </div>
+        </article>
+        <article class="lab-card reveal">
+          <h3 class="mini-title">Catatan kecil dari kepala 🧠</h3>
+          <p>"Clean" itu bagus, tapi kalau terlalu steril rasanya seperti website belum punya suara. Aku lebih suka interface yang tetap rapi, tapi ada kepribadian kecil yang nyempil di sana-sini.</p>
+          <p>Makanya aku sering main di warna, transisi, spacing, dan micro interaction. Detail kecil itu kadang bikin user merasa halaman ini dibuat dengan niat, bukan cuma disusun pakai template yang langsung deploy.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═══ TOOLS ═══ -->
+    <section class="section" id="tools">
+      <div class="section-head reveal">
+        <div>
+          <div class="section-kicker">ALAT TEMPUR</div>
+          <h2 class="section-title">Teman harian buat bikin ide nggak cuma jadi catatan di Notes.</h2>
+        </div>
+        <p class="section-note">Yang penting bukan tool paling mahal, tapi tool yang dipakai sampai idenya beneran jadi. Geser juga bisa.</p>
+      </div>
+
+      <div class="tools-marquee reveal" id="toolsMarquee">
+        <div class="tools-track" id="toolsTrack">
+          <div class="tool-card"><span class="tool-icon">Fg</span><b>Figma</b><p>Design, prototype, komponen, dan debat soal auto-layout.</p></div>
+          <div class="tool-card"><span class="tool-icon">VS</span><b>VS Code</b><p>Editor utama. Tempatnya ngoding dan menatap error dengan penuh cinta.</p></div>
+          <div class="tool-card"><span class="tool-icon">GH</span><b>GitHub</b><p>Version control, backup, dan bukti bahwa aku pernah commit jam 3 pagi.</p></div>
+          <div class="tool-card"><span class="tool-icon">📐</span><b>HTML/CSS</b><p>Fondasi dari semua eksperimen visual. Vanilla, tanpa library, tanpa drama.</p></div>
+          <div class="tool-card"><span class="tool-icon">JS</span><b>JavaScript</b><p>Bikin interaksi yang hidup. Dari DOM manipulation sampai animasi frame-by-frame.</p></div>
+          <div class="tool-card"><span class="tool-icon">Py</span><b>Python</b><p>Script otomasi, tools kecil, dan eksperimen yang kadang berguna kadang nggak.</p></div>
+          <div class="tool-card"><span class="tool-icon">📱</span><b>Android Studio</b><p>IDE buat develop app Android. Lumayan sering crash, tapi tetap setia dipakai.</p></div>
+          <div class="tool-card"><span class="tool-icon">Pr</span><b>Premiere Pro</b><p>Edit video, color grade, dan nunggu render sambil buka tab lain.</p></div>
+          <div class="tool-card"><span class="tool-icon">Ae</span><b>After Effects</b><p>Motion graphics, animasi logo, dan efek yang bikin video terasa pro.</p></div>
+          <div class="tool-card"><span class="tool-icon">Ps</span><b>Photoshop</b><p>Edit gambar, mockup, ilustrasi, dan hal-hal yang susah kalau cuma CSS.</p></div>
+          <div class="tool-card"><span class="tool-icon">Fg</span><b>Figma</b><p>Design, prototype, komponen, dan debat soal auto-layout.</p></div>
+          <div class="tool-card"><span class="tool-icon">VS</span><b>VS Code</b><p>Editor utama. Tempatnya ngoding dan menatap error dengan penuh cinta.</p></div>
+          <div class="tool-card"><span class="tool-icon">GH</span><b>GitHub</b><p>Version control, backup, dan bukti bahwa aku pernah commit jam 3 pagi.</p></div>
+          <div class="tool-card"><span class="tool-icon">📐</span><b>HTML/CSS</b><p>Fondasi dari semua eksperimen visual. Vanilla, tanpa library, tanpa drama.</p></div>
+          <div class="tool-card"><span class="tool-icon">JS</span><b>JavaScript</b><p>Bikin interaksi yang hidup. Dari DOM manipulation sampai animasi frame-by-frame.</p></div>
+          <div class="tool-card"><span class="tool-icon">Py</span><b>Python</b><p>Script otomasi, tools kecil, dan eksperimen yang kadang berguna kadang nggak.</p></div>
+          <div class="tool-card"><span class="tool-icon">📱</span><b>Android Studio</b><p>IDE buat develop app Android. Lumayan sering crash, tapi tetap setia dipakai.</p></div>
+          <div class="tool-card"><span class="tool-icon">Pr</span><b>Premiere Pro</b><p>Edit video, color grade, dan nunggu render sambil buka tab lain.</p></div>
+          <div class="tool-card"><span class="tool-icon">Ae</span><b>After Effects</b><p>Motion graphics, animasi logo, dan efek yang bikin video terasa pro.</p></div>
+          <div class="tool-card"><span class="tool-icon">Ps</span><b>Photoshop</b><p>Edit gambar, mockup, ilustrasi, dan hal-hal yang susah kalau cuma CSS.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ GALLERY ═══ -->
+    <section class="section" id="gallery">
+      <div class="section-head reveal">
+        <div>
+          <div class="section-kicker">MOODBOARD MINI</div>
+          <h2 class="section-title">Potongan rasa visual biar halaman nggak cuma daftar kemampuan.</h2>
+        </div>
+        <p class="section-note">Bisa nanti diganti screenshot project, poster, eksplor UI, atau hasil ngulik yang paling kamu suka.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item reveal"><span class="gallery-label">warna berisik</span></div>
+        <div class="gallery-item reveal"><span class="gallery-label">komponen lucu</span></div>
+        <div class="gallery-item reveal"><span class="gallery-label">motion test</span></div>
+        <div class="gallery-item reveal"><span class="gallery-label">wireframe jam 2 pagi</span></div>
+        <div class="gallery-item reveal"><span class="gallery-label">random UI yang berhasil</span></div>
+        <div class="gallery-item reveal"><span class="gallery-label">ide yang jadi project</span></div>
+      </div>
+    </section>
+
+    <!-- ═══ FUN FACTS ═══ -->
+    <section class="section" id="fun">
+      <div class="section-head reveal">
+        <div>
+          <div class="section-kicker">DATA NGGAK TERLALU ILMIAH</div>
+          <h2 class="section-title">Angka-angka yang mungkin tidak peer-reviewed, tapi cukup menggambarkan suasana.</h2>
+        </div>
+      </div>
+
+      <div class="facts-grid">
+        <article class="fact-card reveal"><strong>34</strong><h3>Tab terbuka</h3><p>Katanya riset. Sebagian memang riset. Sebagian lupa ditutup sejak minggu lalu.</p></article>
+        <article class="fact-card reveal"><strong>2px</strong><h3>Masalah serius</h3><p>Margin kecil, dampak besar. Setidaknya di kepalaku begitu. Tetanggaku bingung.</p></article>
+        <article class="fact-card reveal"><strong>6x</strong><h3>Ganti warna</h3><p>Sebelum akhirnya balik ke warna pertama sambil bilang "ini emang yang terbaik".</p></article>
+        <article class="fact-card reveal"><strong>99%</strong><h3>Suka detail</h3><p>1% sisanya pura-pura santai biar kelihatan normal di depan orang.</p></article>
+      </div>
+    </section>
+
+    <!-- ═══ FAQ ═══ -->
+    <section class="section" id="faq">
+      <div class="section-head reveal">
+        <div>
+          <div class="section-kicker">FAQ MINI</div>
+          <h2 class="section-title">Pertanyaan yang mungkin muncul sambil scroll.</h2>
+        </div>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <button class="faq-btn" type="button">Ini portfolio serius atau bercanda?<span class="faq-plus">+</span></button>
+          <div class="faq-panel"><p>Dua-duanya. Serius di kualitas kode dan desainnya, santai di cara ngomongnya. Biar nggak terasa seperti halaman yang takut punya kepribadian sendiri.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-btn" type="button">Kamu paling suka bagian apa dari bikin website?<span class="faq-plus">+</span></button>
+          <div class="faq-panel"><p>Bagian saat halaman yang tadinya kosong mulai terasa hidup. Apalagi kalau hover kecilnya pas, transisinya nggak lebay, dan timing animasinya masuk ke jiwa. Itu tuh satisfying banget.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-btn" type="button">Kalau ada bug gimana?<span class="faq-plus">+</span></button>
+          <div class="faq-panel"><p>Fase 1: kesal dulu sebentar. Fase 2: cari penyebabnya sambil buka 12 tab Stack Overflow. Fase 3: ketemu solusinya dari jawaban yang sama sekali nggak nyambung. Fase 4: senang luar biasa. Siklus klasik.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-btn" type="button">Kenapa nggak pakai framework kayak React atau Vue?<span class="faq-plus">+</span></button>
+          <div class="faq-panel"><p>Bisa, tapi vanilla JavaScript itu seru karena kamu harus ngerti beneran cara kerjanya. Kayak masak dari bahan mentah dibanding pakai bumbu instan—hasilnya bisa sama enaknya, tapi ilmunya beda.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-btn" type="button">Bisa diajak collab?<span class="faq-plus">+</span></button>
+          <div class="faq-panel"><p>Bisa banget! Kalau ada project web, UI/UX, motion design, atau sekedar mau diskusi ide, kirim aja pesan ke bagian kontak di bawah. Aku suka project yang ada tantangannya.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CONTACT ═══ -->
+    <section class="section" id="contact">
+      <div class="contact-box reveal">
+        <div>
+          <div class="section-kicker">KONTAK</div>
+          <h2>Yuk bikin sesuatu yang nggak hambar.</h2>
+          <p class="hero-copy">Punya ide, project seru, ajakan collab, atau cuma mau bilang "animasi tombolnya niat juga"? Kirim aja. Aku senang ngobrol soal desain, kode, dan hal-hal random yang entah kenapa jadi project sungguhan.</p>
+          <div class="contact-actions">
+            <a class="btn pink magnetic" href="mailto:emailzax@example.com">emailzax@example.com</a>
+            <a class="btn secondary magnetic" href="#">Download CV (santai)</a>
+          </div>
+        </div>
+
+        <form class="contact-form" id="contactForm">
+          <input class="field" type="text" placeholder="Nama kamu siapa?" aria-label="Nama" required />
+          <input class="field" type="email" placeholder="Email kamu (nggak dikirim spam)" aria-label="Email" required />
+          <textarea class="field" placeholder="Ceritain idenya sedikit... atau banyak, aku suka baca." aria-label="Pesan" required></textarea>
+          <button class="btn mint magnetic" type="submit">Kirim pesan ✉️</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 Zax Tamvan. Dibuat dengan niat, rasa penasaran, dan revisi kecil yang tidak pernah kecil.</span>
+    <a href="#home">↑ Balik ke atas</a>
+  </footer>
+
+  <script>
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
+    const cursor = document.querySelector(".cursor");
+    const progress = document.getElementById("progress");
+    const navLinks = document.getElementById("navLinks");
+    const menuBtn = document.getElementById("menuBtn");
+
+    // ─── PROGRESS BAR ───
+    function updateProgress() {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.transform = `scaleX(${scrollable > 0 ? window.scrollY / scrollable : 0})`;
+    }
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    updateProgress();
+
+    // ─── CUSTOM CURSOR ───
+    if (!prefersReduced && cursor && finePointer) {
+      let cx = 0, cy = 0, tx = 0, ty = 0;
+      window.addEventListener("pointermove", (e) => { tx = e.clientX; ty = e.clientY; }, { passive: true });
+      function moveCursor() {
+        cx += (tx - cx) * .18;
+        cy += (ty - cy) * .18;
+        cursor.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%)`;
+        requestAnimationFrame(moveCursor);
+      }
+      moveCursor();
+      document.querySelectorAll("a,button,input,textarea,.skill-card,.project-card,.lab-card,.gallery-item,.fact-card").forEach((el) => {
+        el.addEventListener("pointerenter", () => cursor.classList.add("is-hover"));
+        el.addEventListener("pointerleave", () => cursor.classList.remove("is-hover"));
+      });
+    }
+
+    // ─── MOBILE MENU ───
+    menuBtn.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("is-open");
+      menuBtn.setAttribute("aria-expanded", String(isOpen));
+      menuBtn.textContent = isOpen ? "✕" : "=";
+    });
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("is-open");
+        menuBtn.setAttribute("aria-expanded", "false");
+        menuBtn.textContent = "=";
+      });
+    });
+
+    // ─── REVEAL ON SCROLL ───
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .12 });
+    document.querySelectorAll(".reveal").forEach((el, i) => {
+      el.style.transitionDelay = `${Math.min(i % 5, 4) * 55}ms`;
+      revealObserver.observe(el);
+    });
+
+    // ─── ACTIVE NAV ───
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        document.querySelectorAll(".nav-links a").forEach((link) => {
+          link.classList.toggle("is-active", link.getAttribute("href") === `#${entry.target.id}`);
+        });
+      });
+    }, { rootMargin: "-45% 0px -48% 0px" });
+    document.querySelectorAll("main section[id]").forEach((s) => sectionObserver.observe(s));
+
+    // ─── BUTTON RIPPLE ───
+    document.querySelectorAll(".btn,.tiny-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const rect = btn.getBoundingClientRect();
+        const ripple = document.createElement("span");
+        ripple.className = "ripple";
+        ripple.style.left = `${e.clientX - rect.left}px`;
+        ripple.style.top = `${e.clientY - rect.top}px`;
+        const size = Math.max(rect.width, rect.height) / 3;
+        ripple.style.width = ripple.style.height = `${size}px`;
+        btn.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 700);
+      });
+    });
+
+    // ─── MAGNETIC BUTTONS ───
+    if (!prefersReduced && finePointer) {
+      document.querySelectorAll(".magnetic").forEach((el) => {
+        el.addEventListener("pointermove", (e) => {
+          const rect = el.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          el.style.transform = `translate(${x * .12}px,${y * .16}px)`;
+        });
+        el.addEventListener("pointerleave", () => { el.style.transform = ""; });
+      });
+
+      // ─── TILT CARDS ───
+      document.querySelectorAll(".tilt").forEach((card) => {
+        card.addEventListener("pointermove", (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - .5;
+          const y = (e.clientY - rect.top) / rect.height - .5;
+          card.style.transform = `rotateX(${-y * 8}deg) rotateY(${x * 10}deg) translateY(-6px)`;
+        });
+        card.addEventListener("pointerleave", () => { card.style.transform = ""; });
+      });
+
+      // ─── PARALLAX FLOAT CARDS ───
+      window.addEventListener("pointermove", (e) => {
+        const x = (e.clientX / window.innerWidth - .5) * 18;
+        const y = (e.clientY / window.innerHeight - .5) * 18;
+        document.querySelectorAll(".float-card").forEach((card, i) => {
+          const depth = (i + 1) * .55;
+          card.style.translate = `${x * depth}px ${y * depth}px`;
+        });
+      }, { passive: true });
+    }
+
+    // ─── PROJECT FILTER ───
+    document.querySelectorAll(".filter-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const filter = btn.dataset.filter;
+        document.querySelectorAll(".filter-btn").forEach((b) => b.classList.toggle("is-active", b === btn));
+        document.querySelectorAll(".project-card").forEach((card) => {
+          const show = filter === "all" || card.dataset.tags.includes(filter);
+          card.style.display = show ? "" : "none";
+          if (show) { card.style.opacity = "0"; card.style.transform = "translateY(16px)"; requestAnimationFrame(() => { card.style.transition = "opacity .3s ease, transform .3s ease"; card.style.opacity = "1"; card.style.transform = ""; }); }
+        });
+      });
+    });
+
+    // ─── CHAOS METER ───
+    const chaosRange = document.getElementById("chaosRange");
+    const chaosValue = document.getElementById("chaosValue");
+    const chaosOutput = document.getElementById("chaosOutput");
+    const chaosLines = [
+      "Tenang total. Baru buka editor, belum ada niat mengubah dunia hari ini.",
+      "Masih aman. Baru mulai mikirin apakah tombol ini harus lebih mantul sedikit.",
+      "Mulai rawan. Warna sudah diganti tiga kali, tapi 'katanya ini eksplorasi'.",
+      "Mode fokus. Spacing 2 pixel mulai terasa seperti masalah keamanan nasional.",
+      "Chaos kreatif total. Sudah bikin animasi untuk hal yang sebenarnya diam juga nggak apa-apa.",
+    ];
+    function updateChaos() {
+      const v = Number(chaosRange.value);
+      chaosValue.textContent = v;
+      chaosOutput.textContent = chaosLines[Math.min(chaosLines.length - 1, Math.floor(v / 21))];
+      chaosOutput.style.transform = `rotate(${(v - 50) * .025}deg)`;
+      chaosOutput.style.background = v > 78 ? "var(--sun)" : "white";
+    }
+    chaosRange.addEventListener("input", updateChaos);
+    updateChaos();
+
+    // ─── FAQ ───
+    document.querySelectorAll(".faq-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const item = btn.closest(".faq-item");
+        const panel = item.querySelector(".faq-panel");
+        const isOpen = item.classList.toggle("is-open");
+        document.querySelectorAll(".faq-item").forEach((other) => {
+          if (other !== item) { other.classList.remove("is-open"); other.querySelector(".faq-panel").style.maxHeight = null; }
+        });
+        panel.style.maxHeight = isOpen ? `${panel.scrollHeight}px` : null;
+      });
+    });
+
+    // ─── CONFETTI BURST ───
+    function burstConfetti(x, y) {
+      if (prefersReduced) return;
+      const colors = ["#ffd84d","#74efbd","#68c7ff","#ff7a59","#a58bff","#ff77b7","#c8f653"];
+      for (let i = 0; i < 42; i++) {
+        const piece = document.createElement("span");
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 80 + Math.random() * 160;
+        piece.className = "confetti";
+        piece.style.left = `${x}px`;
+        piece.style.top = `${y}px`;
+        piece.style.background = colors[i % colors.length];
+        piece.style.setProperty("--x", `${Math.cos(angle) * dist}px`);
+        piece.style.setProperty("--y", `${Math.sin(angle) * dist + 44}px`);
+        piece.style.animationDelay = `${Math.random() * .1}s`;
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 1100);
+      }
+    }
+    document.querySelectorAll(".confetti-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => burstConfetti(e.clientX, e.clientY));
+    });
+
+    // ─── CONTACT FORM ───
+    document.getElementById("contactForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      burstConfetti(window.innerWidth / 2, window.innerHeight / 2);
+      e.currentTarget.reset();
+    });
+
+    // ─── DRAG-TO-SCROLL MARQUEE (desktop) ───
+    const marquee = document.getElementById("toolsMarquee");
+    const track = document.getElementById("toolsTrack");
+    let isDragging = false, startX = 0, scrollLeft = 0;
+
+    marquee.addEventListener("mousedown", (e) => {
+      isDragging = true;
+      marquee.classList.add("is-dragging");
+      startX = e.pageX - marquee.offsetLeft;
+      scrollLeft = marquee.scrollLeft;
+      e.preventDefault();
+    });
+    document.addEventListener("mouseup", () => {
+      isDragging = false;
+      marquee.classList.remove("is-dragging");
+    });
+    document.addEventListener("mousemove", (e) => {
+      if (!isDragging) return;
+      const x = e.pageX - marquee.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      marquee.scrollLeft = scrollLeft - walk;
+    });
+
+    // Touch drag support
+    marquee.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].pageX - marquee.offsetLeft;
+      scrollLeft = marquee.scrollLeft;
+    }, { passive: true });
+    marquee.addEventListener("touchmove", (e) => {
+      const x = e.touches[0].pageX - marquee.offsetLeft;
+      marquee.scrollLeft = scrollLeft - (x - startX) * 1.2;
+    }, { passive: true });
+
+    // Make marquee scrollable on overflow for drag
+    marquee.style.overflowX = "auto";
+    marquee.style.scrollbarWidth = "none";
+    marquee.addEventListener("scroll", () => {});
+
+document.addEventListener("contextmenu", e => e.preventDefault());
+document.addEventListener("dragstart", e => e.preventDefault());
+
+  </script>
+</body>
+</html>
