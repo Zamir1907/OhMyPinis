@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zax Tamvan — Portfolio yang nggak diam</title>
-  <meta name="description" content="Portfolio Zax Tamvan: pelajar, tukang ngulik UI/UX, frontend, motion design, Android dev, dan ide random yang kadang jadi project beneran." />
+  <title>ItsZax | Portfolio</title>
+  <meta name="description" content="Portfolio Zax: mahasigma, tukang ngulik UI/UX, frontend, motion design, Android dev, dan ide random yang kadang jadi project beneran." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -63,6 +64,44 @@
       position: fixed; inset: 0; z-index: -2; pointer-events: none; opacity: .15;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.38'/%3E%3C/svg%3E");
     }
+
+    .spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-left: 8px;
+  border: 2px solid var(--ink);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+    /* Loading state tombol */
+.btn-loading {
+  pointer-events: none;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-loading::after {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  border: 2px solid var(--ink);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 
     *{
     -webkit-tap-highlight-color: transparent;
@@ -270,12 +309,20 @@ img{
 
     /* ─── SOCIALS ─── */
     .socials { margin-top: 24px; }
-    .social {
-      width: 47px; height: 47px; display: grid; place-items: center;
-      border: 1px solid rgba(23,21,31,.12); border-radius: 16px;
-      background: rgba(255,255,255,.72); box-shadow: 0 8px 22px rgba(23,21,31,.1);
-      font-weight: 950; transition: .25s var(--spring);
-    }
+   .social {
+  width: 47px;
+  height: 47px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(23,21,31,.12);
+  border-radius: 16px;
+  background: rgba(255,255,255,.72);
+  box-shadow: 0 8px 22px rgba(23,21,31,.1);
+  font-weight: 950;
+  transition: .25s var(--spring);
+  font-size: 22px; /* tambah ini biar icon gede */
+  text-decoration: none; /* tambah ini biar ga ada garis bawah */
+}
     .social:hover { background: var(--green); transform: translateY(-6px) rotate(-6deg) scale(1.07); }
 
     /* ─── HERO VISUAL ─── */
@@ -309,31 +356,19 @@ img{
     .window-bar span:nth-child(2) { background: var(--sun); }
     .window-bar span:nth-child(3) { background: var(--mint); }
     .avatar-scene { position: absolute; inset: 48px 0 0; display: grid; place-items: center; }
-    .avatar {
-      position: relative; width: 64%; aspect-ratio: 1;
-      border: 2px solid var(--ink);
-      border-radius: 37% 63% 47% 53% / 54% 42% 58% 46%;
-      background:
-        radial-gradient(circle at 35% 42%,var(--ink) 0 4%,transparent 4.5%),
-        radial-gradient(circle at 63% 42%,var(--ink) 0 4%,transparent 4.5%),
-        radial-gradient(circle at 51% 58%,rgba(255,122,89,.65) 0 4%,transparent 4.5%),
-        linear-gradient(150deg,#ffe0ca,#ffc099);
-      box-shadow: 0 10px 0 rgba(23,21,31,.2);
-      animation: face 4s ease-in-out infinite;
-    }
-    .avatar::before {
-      content: ""; position: absolute;
-      left: 13%; right: 13%; top: -9%; height: 34%;
-      border: 2px solid var(--ink); border-radius: 50% 50% 40% 45%;
-      background: #211e2b; transform: rotate(-3deg);
-    }
-    .avatar::after {
-      content: "</>"; position: absolute;
-      left: 50%; bottom: -45px;
-      transform: translateX(-50%) rotate(-2deg);
-      padding: 9px 14px; border: 2px solid var(--ink); border-radius: 15px;
-      background: var(--sun); box-shadow: 0 6px 0 rgba(23,21,31,.82); font-weight: 950;
-    }
+   .avatar-img {
+  width: 100%;
+  height: 100%;
+   transition: all 0.5s ease;
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards, shimmer 1.5s ease-in-out infinite;
+   background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+  animation: shimmer 1.5s ease-in-out infinite;
+  object-fit: cover;
+  border: 2px solid var(--ink);
+  box-shadow: 0 10px 0 rgba(23,21,31,.2);
+  animation: face 4s ease-in-out infinite;
+}
     @keyframes face {
       50% { border-radius: 48% 52% 54% 46% / 43% 54% 46% 57%; transform: translateY(-8px); }
     }
@@ -345,6 +380,39 @@ img{
     .code-lines i:nth-child(1) { width: 76%; }
     .code-lines i:nth-child(2) { width: 52%; background: var(--mint); }
     .code-lines i:nth-child(3) { width: 88%; background: var(--sun); }
+
+    @keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Skeleton loading effect */
+.avatar-img.loading {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+  background-size: 200% auto;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Pas gambar udah keluar */
+.avatar-img.loaded {
+  animation: face 4s ease-in-out infinite;
+  background: none;
+}
+
+.avatar-img {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% auto;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
 
     /* ─── STICKERS ─── */
     .sticker,.float-card {
@@ -378,6 +446,9 @@ img{
       border: 2px solid var(--ink); border-radius: 19px;
       background: var(--sun); box-shadow: 0 6px 0 rgba(23,21,31,.82);
       font-weight: 950; transform: rotate(-5deg);
+      font-family: 'Impact', 'Arial Black', sans-serif; 
+  letter-spacing: 1px; 
+  text-transform: uppercase;
     }
     .disclaimer p { margin: 4px 0 0; color: var(--muted); font-weight: 750; line-height: 1.65; }
     .tiny-btn {
@@ -460,22 +531,40 @@ img{
     /* ─── PROJECTS ─── */
     .projects-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
     .project-card { padding: 14px; transform-style: preserve-3d; }
-    .preview {
-      position: relative; height: 215px; overflow: hidden;
-      border: 2px solid var(--ink); border-radius: 18px;
-      background: linear-gradient(135deg,var(--sun),var(--mint),var(--blue));
-    }
-    .preview::before,.preview::after {
-      content: ""; position: absolute; border: 2px solid var(--ink); border-radius: 18px;
-      background: rgba(255,255,255,.78); box-shadow: 0 7px 0 rgba(23,21,31,.22);
-    }
-    .preview::before { width: 64%; height: 46%; left: 18px; top: 22px; }
-    .preview::after { width: 44%; height: 23%; right: 18px; bottom: 24px; background: var(--pink); }
-    .project-card:nth-child(2) .preview { background: linear-gradient(135deg,var(--blue),var(--violet),var(--pink)); }
-    .project-card:nth-child(3) .preview { background: linear-gradient(135deg,var(--orange),var(--sun),var(--green)); }
-    .project-card:nth-child(4) .preview { background: linear-gradient(135deg,var(--violet),var(--blue),var(--mint)); }
-    .project-card:nth-child(5) .preview { background: linear-gradient(135deg,var(--green),var(--mint),var(--blue)); }
-    .project-card:nth-child(6) .preview { background: linear-gradient(135deg,var(--pink),var(--orange),var(--sun)); }
+ 
+/* Skeleton loading buat project images */
+.preview-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 2px solid var(--ink);
+  border-radius: 18px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+  background-size: 200% auto;
+  display: block;
+  transition: opacity 0.5s ease, transform 0.3s var(--spring), box-shadow 0.3s var(--ease);
+  opacity: 0; /* mulai hidden */
+  animation: shimmerProject 1.5s ease-in-out infinite; /* efek loading */
+}
+
+/* Efek shimmer loading */
+@keyframes shimmerProject {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Pas gambar udah keluar */
+.preview-img.loaded {
+  opacity: 1;
+  animation: none; /* matiin efek loading */
+  background: none;
+}
+
+/* Hover effect */
+.project-card:hover .preview-img {
+  transform: scale(1.02);
+  box-shadow: 0 8px 24px rgba(23,21,31,.15);
+}
     .project-body { padding: 18px 6px 6px; }
     .project-body h3 { font-size: 28px; }
     .project-meta,.filter-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 18px; }
@@ -512,32 +601,189 @@ img{
       cursor: grab;
     }
     .tools-marquee:active { cursor: grabbing; }
-    .tools-track {
-      width: max-content; display: flex; gap: 14px; padding: 18px;
-      animation: marquee 32s linear infinite;
-      user-select: none;
-    }
+  .tools-track {
+  width: max-content;
+  display: flex;
+  gap: 14px;
+  padding: 18px;
+  animation: marquee 40s linear infinite; /* tambahin infinite */
+  user-select: none;
+  will-change: transform; /* biar smooth di HP */
+}
     .tools-marquee.is-dragging .tools-track { animation-play-state: paused; }
     .tools-marquee:hover .tools-track { animation-play-state: paused; }
-    @keyframes marquee { to { transform: translateX(-50%); } }
+  @keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
     .tool-card {
       width: 210px; min-height: 150px; display: grid; align-content: start;
       gap: 10px; padding: 18px; border: 1px solid rgba(23,21,31,.1); border-radius: 20px;
       background: rgba(255,255,255,.74); flex-shrink: 0;
     }
 
-    /* ─── GALLERY ─── */
-    .gallery-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 14px; }
-    .gallery-item {
-      min-height: 190px; display: flex; flex-direction: column; justify-content: end;
-      padding: 16px; border: 2px solid rgba(23,21,31,.12);
-      background: radial-gradient(circle at 24% 20%,rgba(255,255,255,.86) 0 12%,transparent 13%),linear-gradient(135deg,var(--sun),var(--pink));
-    }
-    .gallery-item:nth-child(2) { grid-column: span 2; background: linear-gradient(135deg,var(--mint),var(--blue)); }
-    .gallery-item:nth-child(3) { grid-column: span 2; background: linear-gradient(135deg,var(--violet),var(--pink)); }
-    .gallery-item:nth-child(4) { background: linear-gradient(135deg,var(--green),var(--sun)); }
-    .gallery-item:nth-child(5) { grid-column: span 3; background: linear-gradient(135deg,var(--orange),var(--pink),var(--violet)); }
-    .gallery-item:nth-child(6) { grid-column: span 3; background: linear-gradient(135deg,var(--blue),var(--mint),var(--sun)); }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 kolom sama rata */
+  gap: 14px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Tablet & HP besar */
+@media (max-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+}
+
+/* HP */
+@media (max-width: 780px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+/* HP kecil (di bawah 480px) */
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+}
+
+   /* ─── GALLERY IMAGES ─── */
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  min-height: 190px;
+   aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding: 16px;
+  border: 2px solid rgba(23,21,31,.12);
+  border-radius: var(--radius);
+  background: #f0f0f0;
+  transition: transform .3s var(--spring), box-shadow .3s var(--ease);
+}
+/* Tablet: tetep persegi */
+@media (max-width: 1024px) {
+  .gallery-item {
+    aspect-ratio: 1 / 1;
+    min-height: auto;
+  }
+}
+
+/* HP: tetep persegi tapi lebih kecil */
+@media (max-width: 780px) {
+  .gallery-item {
+    aspect-ratio: 1 / 1;
+    min-height: auto;
+    padding: 12px;
+  }
+}
+
+.gallery-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+  background-size: 200% auto;
+  animation: shimmerGallery 1.5s ease-in-out infinite;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* Efek shimmer loading */
+@keyframes shimmerGallery {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Pas gambar udah keload */
+.gallery-img.loaded {
+  opacity: 1;
+  animation: none;
+  background: none;
+}
+
+/* Label tetep di atas gambar */
+.gallery-label {
+  position: relative;
+  z-index: 2;
+  width: fit-content;
+  max-width: 90%;
+  padding: 8px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 5px 0 rgba(23,21,31,.82);
+  font-weight: 950;
+  font-size: 13px;
+  backdrop-filter: blur(4px);
+  word-break: break-word;
+  text-align: center;
+}
+
+/* HP: label lebih kecil */
+@media (max-width: 780px) {
+  .gallery-label {
+    font-size: 11px;
+    padding: 6px 10px;
+    border-radius: 12px;
+  }
+}
+
+/* HP kecil: label makin kecil */
+@media (max-width: 480px) {
+  .gallery-label {
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 10px;
+  }
+}
+
+/* Hover effect */
+.gallery-item:hover {
+  transform: translateY(-9px) rotate(.55deg);
+  box-shadow: 0 28px 60px rgba(23,21,31,.17);
+}
+
+.gallery-item:hover .gallery-img {
+  transform: scale(1.05);
+}
+
+
+/* Tablet: semua span 1 atau 2 */
+@media (max-width: 1024px) {
+  .gallery-item:nth-child(2),
+  .gallery-item:nth-child(3),
+  .gallery-item:nth-child(5),
+  .gallery-item:nth-child(6) {
+    grid-column: span 1; /* atau span 2 kalo mau lebih gede */
+  }
+}
+
+/* HP: semua span 1 (biar rapi 2 kolom) */
+@media (max-width: 780px) {
+  .gallery-item:nth-child(2),
+  .gallery-item:nth-child(3),
+  .gallery-item:nth-child(5),
+  .gallery-item:nth-child(6) {
+    grid-column: span 1;
+  }
+}
+     { grid-column: span 2; background: linear-gradient(135deg,var(--mint),var(--blue)); }
+    { grid-column: span 2; background: linear-gradient(135deg,var(--violet),var(--pink)); }
+    . { background: linear-gradient(135deg,var(--green),var(--sun)); }
+     { grid-column: span 3; background: linear-gradient(135deg,var(--orange),var(--pink),var(--violet)); }
+     { grid-column: span 3; background: linear-gradient(135deg,var(--blue),var(--mint),var(--sun)); }
     .gallery-label {
       width: fit-content; padding: 8px 11px; border: 2px solid var(--ink); border-radius: 14px;
       background: white; box-shadow: 0 5px 0 rgba(23,21,31,.82); font-weight: 950;
@@ -632,6 +878,10 @@ img{
     }
 
     @media (max-width: 780px) {
+       .preview-img {
+         aspect-ratio: 1 / 1; 
+    height: 180px;
+  }
       .nav { inset: 12px 12px auto; }
       .nav-inner { border-radius: 24px; }
       .menu-btn { display: grid; place-items: center; }
@@ -676,6 +926,68 @@ img{
       }
       .cursor { display: none; }
     }
+
+    /* ─── CUSTOM DIALOG MODAL ─── */
+    .project-modal {
+      border: 2px solid var(--ink);
+      border-radius: var(--radius);
+      background: var(--paper);
+      padding: 0;
+      width: min(420px, calc(100% - 32px));
+      box-shadow: 0 20px 0 rgba(23,21,31,.82);
+      transform: scale(0.9);
+      opacity: 0;
+      transition: all 0.3s var(--spring);
+    }
+    
+    /* Ketika modal terbuka otomatis efek ini aktif */
+    .project-modal[open] {
+      transform: scale(1);
+      opacity: 1;
+    }
+    
+    /* Efek background blur di luar kotak dialog */
+    .project-modal::backdrop {
+      background: rgba(23, 21, 31, 0.4);
+      backdrop-filter: blur(6px);
+    }
+    
+    .modal-head {
+      background: var(--sun);
+      padding: 14px 18px;
+      border-bottom: 2px solid var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .modal-dots {
+      display: flex;
+      gap: 6px;
+    }
+    
+    .modal-dots span {
+      width: 10px;
+      height: 10px;
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      background: var(--white);
+    }
+    
+    .modal-body {
+      padding: 24px 18px;
+      display: grid;
+      gap: 18px;
+      text-align: center;
+    }
+    
+    .modal-body p {
+      margin: 0;
+      font-weight: 750;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
   </style>
 </head>
 <body>
@@ -690,9 +1002,9 @@ img{
 
   <header class="nav">
     <div class="nav-inner">
-      <a class="brand magnetic" href="#home" aria-label="Zax Tamvan, balik ke awal">
+      <a class="brand magnetic" href="#home" aria-label="Zax Aja, balik ke awal">
         <span class="brand-mark">Z</span>
-        <span>Zax Tamvan</span>
+        <span>Zax Aja</span>
       </a>
       <nav class="nav-links" id="navLinks" aria-label="Navigasi utama">
         <a href="#about">Cerita</a>
@@ -709,29 +1021,36 @@ img{
     <!-- ═══ HERO ═══ -->
     <section class="section hero" id="home">
       <div class="hero-text">
-        <div class="eyebrow reveal"><span class="ping"></span> Lagi ngulik, lagi eksperimen, lagi penasaran.</div>
-        <h1 class="reveal">Halo, aku <span class="gradient-text">Zax Tamvan</span>.</h1>
-        <div class="nickname reveal">pelajar + tukang oprek interface 🔧</div>
+        <div class="eyebrow reveal"><span class="ping"></span> Bangun tidur ku terus mandi</div>
+        <h1 class="reveal">Halo, aku <span class="gradient-text">@mzacky19</span>.</h1>
+        <div class="nickname reveal">alias Zax. Tukang comot kode orang.</div>
         <p class="hero-copy reveal">
-          Aku suka bikin website yang terasa hidup, bukan sekedar rapi.
-          Kadang mulai dari niat sederhana, berakhir dengan debat batin soal
-          <strong>margin 2 pixel</strong>, timing easing animasi,
-          dan kenapa tombol ini rasanya belum cukup "klik-able".
+         Aku suka bikin website sama aplikasi random. Biasanya berawal dari "ah coba bentar", terus tau2 udah beberapa jam ngulik animasi, spacing, sama tombol yang entah kenapa rasanya masih kurang pas.
         </p>
         <div class="hero-actions reveal">
-          <a class="btn mint magnetic" href="#projects">Lihat hasil ngulik</a>
-          <button class="btn secondary magnetic confetti-btn" type="button">Kasih efek dulu ✨</button>
+          <a class="btn mint magnetic" href="#projects">Lihat karyaku →</a>
+          <button class="btn secondary magnetic confetti-btn" type="button">Useless button</button>
         </div>
-        <div class="socials reveal" aria-label="Link sosial">
-          <a class="social" href="#" aria-label="Instagram">IG</a>
-          <a class="social" href="#" aria-label="GitHub">GH</a>
-          <a class="social" href="#" aria-label="TikTok">TT</a>
-          <a class="social" href="#" aria-label="YouTube">YT</a>
-          <a class="social" href="#" aria-label="Email">@</a>
-        </div>
+       <div class="socials reveal" aria-label="Link sosial">
+  <a class="social" href="#" aria-label="Instagram">
+    <i class="fab fa-instagram"></i>
+  </a>
+  <a class="social" href="#" aria-label="GitHub">
+    <i class="fab fa-github"></i>
+  </a>
+  <a class="social" href="#" aria-label="TikTok">
+    <i class="fab fa-tiktok"></i>
+  </a>
+  <a class="social" href="#" aria-label="YouTube">
+    <i class="fab fa-youtube"></i>
+  </a>
+  <a class="social" href="#" aria-label="Email">
+    <i class="fas fa-envelope"></i>
+  </a>
+</div>
         <div class="scroll-hint reveal" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-          scroll ke bawah, ada yang seru
+          scroll ke bawah, ada yang unik
         </div>
       </div>
 
@@ -739,47 +1058,51 @@ img{
         <article class="desk-card tilt">
           <div class="mini-window">
             <div class="window-bar"><span></span><span></span><span></span></div>
-            <div class="avatar-scene">
-              <div class="avatar" aria-hidden="true"></div>
-            </div>
-            <div class="code-lines" aria-hidden="true"><i></i><i></i><i></i></div>
+         <div class="avatar-scene">
+  <img 
+    class="avatar-img" 
+    src="https://cdn.aceimg.com/Zo2UHVYl9.jpg" 
+    alt="Foto Zax"
+    onload="this.style.animation='none'; this.style.background='none';"
+  />
+</div>
+      <div class="code-lines" aria-hidden="true"><i></i><i></i><i></i></div>
           </div>
-          <span class="sticker one">CSS dulu</span>
-          <span class="sticker two">bug? 👀</span>
-          <span class="sticker three">revisi dikit lagi</span>
+          <span class="sticker one">tetap menyerah</span>
+          <span class="sticker two">anda butuh dana?</span>
+          <span class="sticker three">menyala abangku 🔥</span>
         </article>
-        <span class="float-card a">UI</span>
-        <span class="float-card b">JS</span>
-        <span class="float-card c">UX</span>
+        <span class="float-card a">ytta</span>
+        <span class="float-card b">kamu nanye</span>
+        <span class="float-card c">cuaks</span>
       </div>
     </section>
 
-    <!-- ═══ DISCLAIMER ═══ -->
-    <section class="section" aria-label="Disclaimer santai">
-      <div class="disclaimer reveal">
-        <span class="disclaimer-badge" aria-hidden="true">⚠️</span>
-        <div>
-          <h2 class="mini-title">Disclaimer dulu ya, jangan kabur.</h2>
-          <p>
-            Website ini bukan dokumen resmi, bukan CV yang pakai jas, dan <em>bukan</em> dibuat AI—
-            meski kadang aku sendiri nggak percaya hasilnya. Isinya campuran antara yang beneran,
-            yang dilebih-lebihin dikit biar seru, dan yapping tengah malam yang somehow masih
-            terdengar masuk akal. Jadi kalau ada bagian yang keliatan terlalu dewa—
-            itu mungkin bagian yang dilebih-lebihin. Atau mungkin beneran. Tebak aja sendiri. 🙃
-          </p>
-        </div>
-        <button class="tiny-btn confetti-btn" type="button" aria-label="Setuju dan munculkan konfeti">OK!</button>
+  <!-- ═══ DISCLAIMER ═══ -->
+  <section class="section" aria-label="Disclaimer santai">
+    <div class="disclaimer reveal">
+      <!-- Lencana FYI -->
+      <span class="disclaimer-badge" aria-hidden="true">FYI</span>
+      <div>
+        <h2 class="mini-title">baca dulu bentar</h2>
+        <p>
+          Isi web ini murni yappingan tak berguna dan sebagian besar isinya cuma info sesat hasil ngarang. 
+          Jadi jan dianggap serius. Emang sengaja bikin ginian soalnya lagi gabut hehe, kalo kamu ngerasa boring ya skip aja, 
+          aku gak maksa kamu baca sampe abis. 
+        </p>
       </div>
-    </section>
+      <button class="tiny-btn confetti-btn" type="button" aria-label="Setuju dan munculkan konfeti">paham bang</button>
+    </div>
+  </section>
 
-    <!-- ═══ ABOUT ═══ -->
+ <!-- ═══ ABOUT ═══ -->
     <section class="section" id="about">
       <div class="section-head reveal">
         <div>
           <div class="section-kicker">CERITA SINGKAT</div>
-          <h2 class="section-title">Aku tipe orang yang lihat animasi keren lalu langsung buka DevTools.</h2>
+          <h2 class="section-title">Aku tipe orang yang liat web keren dikit langsung fomo buka DevTools nyari celah dosa.</h2>
         </div>
-        <p class="section-note">Belajarnya banyak dari bongkar-bongkar kode, coba ulang, error dulu, lalu pura-pura tenang pas ketemu solusinya.</p>
+        <p class="section-note">Belajarnya murni dari stres, nyari hoki, eror 404, lalu pura-pura tegar di depan laptop padahal pengen nangis.</p>
       </div>
 
       <div class="about-grid">
@@ -787,14 +1110,12 @@ img{
           <h3 class="mini-title">Mode belajar:</h3>
           <span class="big-number">otodidak</span>
           <p>
-            Aku senang eksperimen. Kalau ada design, animasi, atau interaksi
-            yang kelihatan menarik, biasanya aku simpan dulu, bongkar pelan-pelan,
-            lalu bikin versi yang lebih "aku banget".
+            Aku seneng eksperimen sesat. Kalo ada desain atau animasi yang sekilas estetik, biasanya aku comot jalurnya, aku bongkar sampe mampus, lalu bikin versi yang lebih ramah lingkungan.
           </p>
           <div class="chip-row">
-            <span class="chip">perfeksionis kecil</span>
-            <span class="chip">suka motion</span>
-            <span class="chip">anti hambar</span>
+            <span class="chip">menyala abangku</span>
+            <span class="chip">affa iyyah</span>
+            <span class="chip">kalau aku malu tuh</span>
           </div>
         </aside>
 
@@ -802,105 +1123,114 @@ img{
           <article class="timeline-item reveal">
             <span class="dot">01</span>
             <div>
-              <h3>Mulai dari rasa penasaran</h3>
-              <p>Awalnya cuma pengin tahu kenapa website bisa gerak. Terus kebablasan sampai CSS transition terasa seperti mainan wajib dan easing animation jadi topik obrolan serius.</p>
+              <h3>Kena fomo sejak umur dua bulan</h3>
+              <p>Awalnya cuma penasaran kenapa tombol bisa gerak-gerak lucu. Eh kebablasan sampe kecanduan ngatur easing animation dan nganggep CSS transition sebagai jalan ninja hidup.</p>
             </div>
           </article>
           <article class="timeline-item reveal">
             <span class="dot">02</span>
             <div>
-              <h3>Bongkar, pahami, remix</h3>
-              <p>Aku sering belajar dari kode orang lain. Bukan cuma copas, tapi dicari logikanya, diacak sedikit, lalu dibuat versi sendiri yang rasanya beda. Ini serius, bukan curi-curi.</p>
+              <h3>Amati, Tiru, Remix sampe meledak</h3>
+              <p>Aku sering nyolong logika kode orang. Tapi tenang, bukan murni copas kaku, melainkan dicari bug-nya, diacak-acak sampe pusing, terus diklaim jadi karya sendiri versi lebih premium wkwk.</p>
             </div>
           </article>
           <article class="timeline-item reveal">
             <span class="dot">03</span>
             <div>
-              <h3>Detail kecil itu bahaya (banget)</h3>
-              <p>Niatnya cuma rapihin satu section. Tiba-tiba sudah 2 jam ngatur shadow, radius, delay animasi, rasa tombol saat diklik, dan kenapa warna ini nggak cukup "pop".</p>
+              <h3>Penyakit perfeksionis gak jelas</h3>
+              <p>Niat awal cuma pengen ganti warna text dikit. Tiba-tiba udah 3 jam stuck ngatur border-radius, shadow melayang, delay delay gak ngotak, sama ngerenungin kenapa layout-nya gak pop up.</p>
             </div>
           </article>
           <article class="timeline-item reveal">
             <span class="dot">04</span>
             <div>
-              <h3>Sekarang lagi eksplor banyak hal</h3>
-              <p>Frontend, UI/UX, creative coding, Android development, content creation, dan ide-ide random yang kadang muncul persis saat laptop mau ditutup jam 2 pagi.</p>
+              <h3>Segala hal disentuh biar keliatan sibuk</h3>
+              <p>Sok-sokan nyentuh Frontend, UI/UX, Android dev, bikin konten tiktok, sampe nyiptain ide-ide konyol bin gaib yang biasanya cuma muncul pas laptop mau dimatiin jam 2 subuh.</p>
             </div>
           </article>
         </div>
       </div>
     </section>
+
+  
 
     <!-- ═══ SKILLS ═══ -->
     <section class="section" id="skills">
       <div class="section-head reveal">
         <div>
           <div class="section-kicker">SKILL YANG SERING DIPAKAI</div>
-          <h2 class="section-title">Bukan superpower, tapi lumayan buat menyelamatkan layar kosong.</h2>
+          <h2 class="section-title">Bukan superpower, tapi lumayan lah buat ini anu adalah pokoknya.</h2>
         </div>
-        <p class="section-note">Levelnya bukan angka sakral. Ini cuma gambaran bagian mana yang paling sering aku ulik dan kadang bikin aku lupa makan.</p>
+        <p class="section-note">Gausah nanya dapet sertifikat dari mana. Ini murni hasil begadang, modal nekat, sama hoki pas nemu tutorial luar negeri.</p>
       </div>
 
       <div class="skills-grid">
         <article class="skill-card reveal">
-          <div class="skill-top"><span class="skill-icon">UI</span><span class="badge">visual-first</span></div>
+          <div class="skill-top"><span class="skill-icon">UI</span><span class="badge">menyala abangku 🔥</span></div>
           <h3>UI Design</h3>
-          <p>Layout, warna, hierarchy, komponen, dan rasa visual yang nggak kaku. Kalau ada yang kurang simetris 1px, aku bisa lihat.</p>
+          <p>Urusan layout sama komponen. Kalo ada elemen yang geser atau gak simetris 1px, mata aku langsung kedutan pengen ngamuk.</p>
           <div class="meter" aria-label="Level UI Design 4 dari 5"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
         </article>
+
         <article class="skill-card reveal">
           <div class="skill-top"><span class="skill-icon">UX</span><span class="badge">human mode</span></div>
           <h3>UX Thinking</h3>
-          <p>Mikirin alur, kebiasaan user, dan bagian yang bikin orang bilang "oh enak juga"—bukan "ini tombolnya di mana?"</p>
+          <p>Mikirin alur biar user gak emosi. Targetnya adalah bikin orang nyaman, bukan malah bikin mereka nyariin alamat rumah aku buat ngajak duel.</p>
           <div class="meter" aria-label="Level UX Thinking 4 dari 5"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
         </article>
+
         <article class="skill-card reveal">
-          <div class="skill-top"><span class="skill-icon">{ }</span><span class="badge">vanilla</span></div>
+          <div class="skill-top"><span class="skill-icon">{ }</span><span class="badge">vanilla sesat</span></div>
           <h3>Frontend</h3>
-          <p>HTML, CSS, JavaScript, responsive layout, aksesibilitas, dan performa ringan. Nggak pakai framework? Justru lebih seru.</p>
+          <p>HTML, CSS, sama JS mentahan. Gak pake framework ribet karena aku penganut sekte murni penting yakin dan asal jalurnya bener.</p>
           <div class="meter" aria-label="Level Frontend 4 dari 5"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
         </article>
+
         <article class="skill-card reveal">
           <div class="skill-top"><span class="skill-icon">MV</span><span class="badge">bouncy ✨</span></div>
           <h3>Motion Design</h3>
-          <p>Hover, reveal, spring animation, transisi, dan micro interaction yang ada alasannya. Bukan sekedar gerak-gerak doang.</p>
+          <p>Ngurusin hover sama delay animasi biar keliatan premium. Bukan sekadar gerak alay, tapi biar yang nyoba web ini kesirep.</p>
           <div class="meter" aria-label="Level Motion 4 dari 5"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
         </article>
+
         <article class="skill-card reveal">
           <div class="skill-top"><span class="skill-icon">📱</span><span class="badge">mobile-first</span></div>
           <h3>Android Dev</h3>
-          <p>Ngulik Java, bikin app yang bisa diinstal beneran. Pernah bikin simulasi UI banking yang kayak app sungguhan.</p>
+          <p>Ngulik Java pake logika sendiri. Pernah iseng bikin simulasi UI m-banking buat pamer di sosmed biar dikira hacker pro.</p>
           <div class="meter" aria-label="Level Android 3 dari 5"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div>
         </article>
+
         <article class="skill-card reveal">
-          <div class="skill-top"><span class="skill-icon">Py</span><span class="badge">scripting</span></div>
+          <div class="skill-top"><span class="skill-icon">Py</span><span class="badge">scripting gaib</span></div>
           <h3>Python</h3>
-          <p>Automasi, script random yang entah kenapa berguna, dan eksperimen kecil yang kadang berakhir jadi project sungguhan.</p>
+          <p>Automasi pake script random di CMD. Kadang berguna buat ngebantu tugas, kadang malah bikin laptop ngeluarin suara helikopter.</p>
           <div class="meter" aria-label="Level Python 3 dari 5"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div>
         </article>
+
         <article class="skill-card reveal">
-          <div class="skill-top"><span class="skill-icon">🎥</span><span class="badge">storytelling</span></div>
+          <div class="skill-top"><span class="skill-icon">🎥</span><span class="badge">pakar fyp</span></div>
           <h3>Content Creation</h3>
-          <p>YouTube, TikTok, dan konten visual yang ada konsepnya. Karena ngedit video itu ternyata mirip ngulik animasi: detail mulu.</p>
+          <p>Bikin konten buat YouTube sama TikTok. Ngeditnya pake emosi dan detail mulu, mirip kayak pas lagi nyari bug kodingan jam 2 subuh.</p>
           <div class="meter" aria-label="Level Content 3 dari 5"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div>
         </article>
+
         <article class="skill-card reveal">
-          <div class="skill-top"><span class="skill-icon">🔍</span><span class="badge">growth</span></div>
+          <div class="skill-top"><span class="skill-icon">🔍</span><span class="badge">info sepuh</span></div>
           <h3>SEO & Strategy</h3>
-          <p>Bikin konten yang nggak cuma bagus, tapi juga ketemu sama orang yang tepat. SEO itu kayak puzzle yang nggak ada tutorialnya.</p>
+          <p>Ngelacak algoritma biar konten gak tenggelam. SEO itu ibarat nyari jarum di jerami, gak ada tutorial pasti tapi penting konsisten.</p>
           <div class="meter" aria-label="Level SEO 3 dari 5"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div>
         </article>
       </div>
     </section>
 
-    <!-- ═══ PROJECTS ═══ -->
+ <!-- ═══ PROJECTS ═══ -->
     <section class="section" id="projects">
       <div class="section-head reveal">
         <div>
-          <div class="section-kicker">PROJECT / EKSPERIMEN</div>
-          <h2 class="section-title">Beberapa tempat di mana ide random berubah jadi sesuatu yang bisa diklik.</h2>
+          <div class="section-kicker">PROYEK HASIL BEGADANG</div>
+          <h2 class="section-title">Kumpulan ide random jam 2 subuh yang entah kenapa bisa jalan pas diklik.</h2>
         </div>
-        <p class="section-note">Link masih placeholder—nanti bisa diganti demo asli, repo, atau video proses. Tapi idenya udah real.</p>
+        <p class="section-note">Proyek ini masih pajangan doang. Nanti kalo aku gak males baru diganti link download aslinya, yang penting keliatan meyakinkan dulu wkwk.</p>
       </div>
 
       <div class="filter-row reveal" aria-label="Filter project">
@@ -908,173 +1238,287 @@ img{
         <button class="filter-btn" type="button" data-filter="web">Web</button>
         <button class="filter-btn" type="button" data-filter="ui">UI</button>
         <button class="filter-btn" type="button" data-filter="android">Android</button>
-  
       </div>
 
-      <div class="projects-grid">
-        <article class="project-card tilt reveal" data-tags="web ui">
-          <div class="preview" aria-hidden="true"></div>
+
+   <div class="projects-grid">
+
+       <article class="project-card tilt reveal" data-tags="web ui">
+
+          <img class="preview-img" src="https://cdn.aceimg.com/hRoA0TFLR.jpg" alt="Nama Project" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
+
           <div class="project-body">
+
             <h3>Zax Archive</h3>
-            <p>Tempat nyimpen dan ngearsipkan semua eksperimen visual, snippet kode, dan ide-ide yang terlalu sayang untuk dihapus.</p>
-            <div class="project-meta"><span class="pill">Web</span><span class="pill">UI</span><span class="pill">Personal</span></div>
-            <a href="#" class="btn mint magnetic">Intip demo</a>
+
+            <p>Aplikasi portal berbasis webview yang mengarsipkan sisi gelap internet, berita brutality, dan dokumentasi gore yang gak bakal lu temuin di media mainstream.</p>
+
+            <div class="project-meta"><span class="pill">Webview</span><span class="pill">Dark Web Style</span><span class="pill">18+ Only</span></div>
+
+           <a href="#" class="btn mint magnetic project-btn" 
+
+               data-title="Zax Archive" 
+
+               data-desc="Link download Aplikasi di saluran WA ku yaa.">Download</a>
+
           </div>
+
         </article>
+
         <article class="project-card tilt reveal" data-tags="ui android">
-          <div class="preview" aria-hidden="true"></div>
+
+          <img class="preview-img" src="https://cdn.aceimg.com/Q9g46iTJX.jpg" alt="Nama Project" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
+
           <div class="project-body">
+
             <h3>Simulasi UI Banking</h3>
-            <p>App Android yang tampilannya kayak banking beneran. Bikinnya waktu penasaran: "emang bisa se-clean ini pakai Java?"</p>
-            <div class="project-meta"><span class="pill">Android</span><span class="pill">Java</span><span class="pill">UI Design</span></div>
-            <a href="#" class="btn mint magnetic">Intip demo</a>
+
+            <p>Aplikasi Android fiktif yang tampilannya mirip m-banking asli. Dibikin murni pake HP dan Sketchware gara-gara aku penasaran dan gabut.</p>
+
+            <div class="project-meta"><span class="pill">Android</span><span class="pill">Java</span><span class="pill">Sketchware</span></div>
+
+       <a href="#" class="btn mint magnetic project-btn" 
+
+               data-title="Simulasi UI Banking" 
+
+               data-desc="Mau intip saldo fiktif? Tinggal cek ig aku aja yaa.">Download</a>
+
           </div>
+
         </article>
+
+
+
         <article class="project-card tilt reveal" data-tags="web ui motion">
-          <div class="preview" aria-hidden="true"></div>
+
+          <img class="preview-img" src="https://cdn.aceimg.com/jT3Qb5GXL.jpg" alt="Nama Project" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
+
           <div class="project-body">
-            <h3>Landing Page Banyak Tingkah</h3>
-            <p>Halaman promosi yang nggak cuma rapi, tapi punya hover drama, sticker mengambang, dan transisi yang punya niat.</p>
-            <div class="project-meta"><span class="pill">Web</span><span class="pill">CSS</span><span class="pill">Motion</span></div>
-            <a href="#" class="btn mint magnetic">Intip demo</a>
+
+            <h3>Landing Page</h3>
+
+            <p>Web promosi eksperimen yang isinya penuh drama, hover ngeselin, stiker melayang, sama transisi animasi yang sengaja dibikin buat ngetes mental user.</p>
+
+            <div class="project-meta"><span class="pill">Web</span><span class="pill">CSS</span><span class="pill">Full Drama</span></div>
+
+            <a href="#" class="btn mint magnetic project-btn"
+
+               data-title="Landing Page"
+
+               data-desc="Demo landing page eksperimen ini belum dibuka untuk publik. Nanti link download atau live preview bakal dipasang kalau versi finalnya sudah rapi.">Download</a>
+
           </div>
+
         </article>
+
+
+
         <article class="project-card tilt reveal" data-tags="python">
-          <div class="preview" aria-hidden="true"></div>
+
+          <img class="preview-img" src="https://cdn.aceimg.com/L3lzzjwF2.jpg" alt="Nama Project" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
+
           <div class="project-body">
+
             <h3>Script Python Random</h3>
-            <p>Kumpulan script automasi kecil yang awalnya "buat iseng", terus kepake beneran. Beberapa berguna, beberapa aneh, semua ada alasannya.</p>
-            <div class="project-meta"><span class="pill">Python</span><span class="pill">Automasi</span><span class="pill">Scripting</span></div>
-            <a href="#" class="btn mint magnetic">Intip repo</a>
+
+            <p>Kumpulan script automasi kecil di Terminal yang awalnya cuma buat iseng, tapi malah kepake beneran. Ada yang berguna, ada yang aneh, yang penting jalan.</p>
+
+            <div class="project-meta"><span class="pill">Python</span><span class="pill">Terminal</span><span class="pill">Scripting</span></div>
+
+            <a href="#" class="btn mint magnetic project-btn"
+
+               data-title="Script Python Random"
+
+               data-desc="Kumpulan script ini masih dirapikan dulu biar aman dibagikan. Kalau sudah siap, bagian ini bakal jadi tempat link download atau repositorinya.">Download</a>
+
           </div>
+
         </article>
+
+
+
         <article class="project-card tilt reveal" data-tags="ui web">
-          <div class="preview" aria-hidden="true"></div>
+
+          <img class="preview-img" src="https://cdn.aceimg.com/pDTmfqSxU.jpg" alt="Nama Project" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
+
           <div class="project-body">
+
             <h3>Dashboard Anti Pusing</h3>
-            <p>Eksperimen dashboard yang tetap padat, tapi informasi utamanya nggak ngajak main petak umpet sama user.</p>
-            <div class="project-meta"><span class="pill">Dashboard</span><span class="pill">UX</span><span class="pill">JS</span></div>
-            <a href="#" class="btn mint magnetic">Intip demo</a>
+
+            <p>Eksperimen layout dashboard yang padat tapi tetep rapi, biar informasi utamanya gak ngajak main petak umpet atau bikin user emosi banting mouse.</p>
+
+            <div class="project-meta"><span class="pill">Dashboard</span><span class="pill">UX</span><span class="pill">JS Mentah</span></div>
+
+            <a href="#" class="btn mint magnetic project-btn"
+
+               data-title="Dashboard Anti Pusing"
+
+               data-desc="Dashboard ini masih berupa showcase UI. Link demo akan ditambahkan setelah komponen, data contoh, dan interaksinya selesai dipoles.">Download</a>
+
           </div>
+
         </article>
+
+
+
         <article class="project-card tilt reveal" data-tags="motion web">
-          <div class="preview" aria-hidden="true"></div>
+
+          <img class="preview-img" src="https://cdn.aceimg.com/QFfzjXuMt.jpg" alt="Nama Project" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
+
           <div class="project-body">
+
             <h3>Motion Playground</h3>
-            <p>Tempat ngetes timing spring, reveal animation, parallax, dan efek kecil yang bikin halaman terasa lebih hidup dari seharusnya.</p>
-            <div class="project-meta"><span class="pill">Creative</span><span class="pill">CSS</span><span class="pill">Fun</span></div>
-            <a href="#" class="btn mint magnetic">Intip demo</a>
+
+            <p>Tempat aku ngetes timing spring, reveal animation, dan efek-efek kecil gaib yang bikin halaman web kerasa lebih hidup daripada kehidupan nyata.</p>
+
+            <div class="project-meta"><span class="pill">Creative</span><span class="pill">CSS</span><span class="pill">Eksperimen</span></div>
+
+            <a href="#" class="btn mint magnetic project-btn"
+
+               data-title="Motion Playground"
+
+               data-desc="Motion playground ini masih jadi tempat eksperimen animasi. Nanti kalau preset dan demo sudah stabil, link aksesnya bakal dipasang di sini.">Download</a>
           </div>
         </article>
       </div>
     </section>
 
     <!-- ═══ LAB ═══ -->
-    <section class="section" id="lab">
-      <div class="section-head reveal">
-        <div>
-          <div class="section-kicker">ZAX LAB</div>
-          <h2 class="section-title">Bagian interaktif kecil, karena portfolio yang diam itu kadang terlalu sopan.</h2>
+  <section class="section" id="lab">
+  <div class="section-head reveal">
+    <div>
+      <div class="section-kicker">ZAX LAB</div>
+      <h2 class="section-title">Selain portofolio, ada bagian receh juga nih biar gak monoton-monoton amat.</h2>
+    </div>
+    <p class="section-note">Coba geser slider-nya aja. Gak penting-penting banget sih, tapi seru aja buat dicoba.</p>
+  </div>
+  <div class="lab-wrap">
+    <article class="lab-card featured reveal">
+      <div>
+        <h3 class="mini-title">Chaos meter 🌡️</h3>
+        <p>Atur tingkat "ngulik tengah malam"-nya, nanti muncul kalimat random. Bener atau nggaknya udah gak dijamin, yang penting bisa bikin senyum-senyum sendiri.</p>
+      </div>
+      <div class="chaos-panel">
+        <div class="slider-row">
+          <label for="chaosRange">Kadar eksperimen: <span id="chaosValue">63</span>%</label>
+          <input id="chaosRange" type="range" min="0" max="100" value="63" />
         </div>
-        <p class="section-note">Geser slider-nya. Ini bukan fitur penting, tapi vibes-nya penting banget.</p>
+        <div class="chaos-output" id="chaosOutput">Lagi rawan nih. Warna udah ganti tiga kali, alasannya tetep aja "masih eksperimen".</div>
       </div>
-
-      <div class="lab-wrap">
-        <article class="lab-card featured reveal">
-          <div>
-            <h3 class="mini-title">Chaos meter 🌡️</h3>
-            <p>Atur kadar "ngulik tengah malam" dan lihat kalimat random yang muncul. Akurat? Sangat mungkin. Menghibur? Semoga iya.</p>
-          </div>
-          <div class="chaos-panel">
-            <div class="slider-row">
-              <label for="chaosRange">Kadar eksperimen: <span id="chaosValue">63</span>%</label>
-              <input id="chaosRange" type="range" min="0" max="100" value="63" />
-            </div>
-            <div class="chaos-output" id="chaosOutput">Mulai rawan. Warna sudah diganti tiga kali, tapi "katanya ini eksplorasi".</div>
-          </div>
-        </article>
-        <article class="lab-card reveal">
-          <h3 class="mini-title">Catatan kecil dari kepala 🧠</h3>
-          <p>"Clean" itu bagus, tapi kalau terlalu steril rasanya seperti website belum punya suara. Aku lebih suka interface yang tetap rapi, tapi ada kepribadian kecil yang nyempil di sana-sini.</p>
-          <p>Makanya aku sering main di warna, transisi, spacing, dan micro interaction. Detail kecil itu kadang bikin user merasa halaman ini dibuat dengan niat, bukan cuma disusun pakai template yang langsung deploy.</p>
-        </article>
-      </div>
-    </section>
+    </article>
+    
+    <article class="lab-card reveal">
+      <h3 class="mini-title">Curhat dikit dari kepala 🧠</h3>
+      <p>Desain yang "clean" itu enak diliat, tapi kalau kelewat polos jadinya kayak gak ada nyawanya. Aku lebih suka tampilan yang tetep rapi, tapi ada ciri khasnya gitu, biar gak keliatan pasaran.</p>
+      <p>Makanya aku suka main-main sama warna, transisi, jarak antar elemen, sampe animasi-animasi kecil. Detail sekecil itu yang bikin orang ngerasa halaman ini emang dibuat niat, bukan cuma asal tempel template terus langsung upload.</p>
+    </article>
+  </div>
+</section>
 
     <!-- ═══ TOOLS ═══ -->
-    <section class="section" id="tools">
+   <section class="section" id="tools">
       <div class="section-head reveal">
         <div>
-          <div class="section-kicker">ALAT TEMPUR</div>
-          <h2 class="section-title">Teman harian buat bikin ide nggak cuma jadi catatan di Notes.</h2>
+          <div class="section-kicker">GUDANG SENJATA GAIB</div>
+          <h2 class="section-title">Deretan software penyembah ram yang bikin laptop aku meledak.</h2>
         </div>
-        <p class="section-note">Yang penting bukan tool paling mahal, tapi tool yang dipakai sampai idenya beneran jadi. Geser juga bisa.</p>
+        <p class="section-note">Gak butuh spek dewa, yang penting asalkan kodingannya jalan dan gak bikin rumah mati lampu aja udah sujud syukur.</p>
       </div>
 
       <div class="tools-marquee reveal" id="toolsMarquee">
         <div class="tools-track" id="toolsTrack">
-          <div class="tool-card"><span class="tool-icon">Fg</span><b>Figma</b><p>Design, prototype, komponen, dan debat soal auto-layout.</p></div>
-          <div class="tool-card"><span class="tool-icon">VS</span><b>VS Code</b><p>Editor utama. Tempatnya ngoding dan menatap error dengan penuh cinta.</p></div>
-          <div class="tool-card"><span class="tool-icon">GH</span><b>GitHub</b><p>Version control, backup, dan bukti bahwa aku pernah commit jam 3 pagi.</p></div>
-          <div class="tool-card"><span class="tool-icon">📐</span><b>HTML/CSS</b><p>Fondasi dari semua eksperimen visual. Vanilla, tanpa library, tanpa drama.</p></div>
-          <div class="tool-card"><span class="tool-icon">JS</span><b>JavaScript</b><p>Bikin interaksi yang hidup. Dari DOM manipulation sampai animasi frame-by-frame.</p></div>
-          <div class="tool-card"><span class="tool-icon">Py</span><b>Python</b><p>Script otomasi, tools kecil, dan eksperimen yang kadang berguna kadang nggak.</p></div>
-          <div class="tool-card"><span class="tool-icon">📱</span><b>Android Studio</b><p>IDE buat develop app Android. Lumayan sering crash, tapi tetap setia dipakai.</p></div>
-          <div class="tool-card"><span class="tool-icon">Pr</span><b>Premiere Pro</b><p>Edit video, color grade, dan nunggu render sambil buka tab lain.</p></div>
-          <div class="tool-card"><span class="tool-icon">Ae</span><b>After Effects</b><p>Motion graphics, animasi logo, dan efek yang bikin video terasa pro.</p></div>
-          <div class="tool-card"><span class="tool-icon">Ps</span><b>Photoshop</b><p>Edit gambar, mockup, ilustrasi, dan hal-hal yang susah kalau cuma CSS.</p></div>
-          <div class="tool-card"><span class="tool-icon">Fg</span><b>Figma</b><p>Design, prototype, komponen, dan debat soal auto-layout.</p></div>
-          <div class="tool-card"><span class="tool-icon">VS</span><b>VS Code</b><p>Editor utama. Tempatnya ngoding dan menatap error dengan penuh cinta.</p></div>
-          <div class="tool-card"><span class="tool-icon">GH</span><b>GitHub</b><p>Version control, backup, dan bukti bahwa aku pernah commit jam 3 pagi.</p></div>
-          <div class="tool-card"><span class="tool-icon">📐</span><b>HTML/CSS</b><p>Fondasi dari semua eksperimen visual. Vanilla, tanpa library, tanpa drama.</p></div>
-          <div class="tool-card"><span class="tool-icon">JS</span><b>JavaScript</b><p>Bikin interaksi yang hidup. Dari DOM manipulation sampai animasi frame-by-frame.</p></div>
-          <div class="tool-card"><span class="tool-icon">Py</span><b>Python</b><p>Script otomasi, tools kecil, dan eksperimen yang kadang berguna kadang nggak.</p></div>
-          <div class="tool-card"><span class="tool-icon">📱</span><b>Android Studio</b><p>IDE buat develop app Android. Lumayan sering crash, tapi tetap setia dipakai.</p></div>
-          <div class="tool-card"><span class="tool-icon">Pr</span><b>Premiere Pro</b><p>Edit video, color grade, dan nunggu render sambil buka tab lain.</p></div>
-          <div class="tool-card"><span class="tool-icon">Ae</span><b>After Effects</b><p>Motion graphics, animasi logo, dan efek yang bikin video terasa pro.</p></div>
-          <div class="tool-card"><span class="tool-icon">Ps</span><b>Photoshop</b><p>Edit gambar, mockup, ilustrasi, dan hal-hal yang susah kalau cuma CSS.</p></div>
+          <div class="tool-card"><span class="tool-icon">Fg</span><b>Figma</b><p>Tempat coret-coret layout, bikin aset, sama berantem ngatur auto-layout sampe pusing.</p></div>
+          <div class="tool-card"><span class="tool-icon">VS</span><b>VS Code</b><p>Aplikasi utama penampung stres. Isinya cuma ngoding sambil nyari typo yang terselubung.</p></div>
+          <div class="tool-card"><span class="tool-icon">GH</span><b>GitHub</b><p>Gudang backup kode sesat biar sasis kodingan aku gak ilang pas laptop tiba-tiba blue screen.</p></div>
+          <div class="tool-card"><span class="tool-icon">📐</span><b>HTML/CSS</b><p>Fondasi utama bikin visual web. Murni vanilla anti-mainstream tanpa library pihak ketiga.</p></div>
+          <div class="tool-card"><span class="tool-icon">JS</span><b>JavaScript</b><p>Bikin web bisa gerak interaktif. Dari manipulasi DOM dasar sampe animasi bikin jantungan.</p></div>
+          <div class="tool-card"><span class="tool-icon">Py</span><b>Python</b><p>Script automasi di Termux. Kadang buat ngebantu tugas, kadang murni buat iseng-iseng berhadiah.</p></div>
+          <div class="tool-card"><span class="tool-icon">📱</span><b>Android Studio</b><p>IDE develop aplikasi mobile yang hobi banget ngabisin ram sama bikin kipas laptop muter kenceng.</p></div>
+          <div class="tool-card"><span class="tool-icon">Pr</span><b>Premiere Pro</b><p>Tempat potong-potong video konten. Bagian paling seru adalah pas nunggu proses render.</p></div>
+          <div class="tool-card"><span class="tool-icon">Ae</span><b>After Effects</b><p>Bikin motion graphics sama animasi logo biar hasil editan gak keliatan polosan banget.</p></div>
+          <div class="tool-card"><span class="tool-icon">Ps</span><b>Photoshop</b><p>Edit gambar manipulasi atau bikin mockup dadakan yang sasis layout-nya susah diakalin pake CSS.</p></div>
+          
+          <div class="tool-card"><span class="tool-icon">Fg</span><b>Figma</b><p>Tempat coret-coret layout, bikin aset, sama berantem ngatur auto-layout sampe pusing.</p></div>
+          <div class="tool-card"><span class="tool-icon">VS</span><b>VS Code</b><p>Aplikasi utama penampung stres. Isinya cuma ngoding sambil nyari typo yang terselubung.</p></div>
+          <div class="tool-card"><span class="tool-icon">GH</span><b>GitHub</b><p>Gudang backup kode sesat biar sasis kodingan aku gak ilang pas laptop tiba-tiba blue screen.</p></div>
+          <div class="tool-card"><span class="tool-icon">📐</span><b>HTML/CSS</b><p>Fondasi utama bikin visual web. Murni vanilla anti-mainstream tanpa library pihak ketiga.</p></div>
+          <div class="tool-card"><span class="tool-icon">JS</span><b>JavaScript</b><p>Bikin web bisa gerak interaktif. Dari manipulasi DOM dasar sampe animasi bikin jantungan.</p></div>
+          <div class="tool-card"><span class="tool-icon">Py</span><b>Python</b><p>Script automasi di Termux. Kadang buat ngebantu tugas, kadang murni buat iseng-iseng berhadiah.</p></div>
+          <div class="tool-card"><span class="tool-icon">📱</span><b>Android Studio</b><p>IDE develop aplikasi mobile yang hobi banget ngabisin ram sama bikin kipas laptop muter kenceng.</p></div>
+          <div class="tool-card"><span class="tool-icon">Pr</span><b>Premiere Pro</b><p>Tempat potong-potong video konten. Bagian paling seru adalah pas nunggu proses render.</p></div>
+          <div class="tool-card"><span class="tool-icon">Ae</span><b>After Effects</b><p>Bikin motion graphics sama animasi logo biar hasil editan gak keliatan polosan banget.</p></div>
+          <div class="tool-card"><span class="tool-icon">Ps</span><b>Photoshop</b><p>Edit gambar manipulasi atau bikin mockup dadakan yang sasis layout-nya susah diakalin pake CSS.</p></div>
         </div>
       </div>
     </section>
 
-    <!-- ═══ GALLERY ═══ -->
-    <section class="section" id="gallery">
-      <div class="section-head reveal">
-        <div>
-          <div class="section-kicker">MOODBOARD MINI</div>
-          <h2 class="section-title">Potongan rasa visual biar halaman nggak cuma daftar kemampuan.</h2>
-        </div>
-        <p class="section-note">Bisa nanti diganti screenshot project, poster, eksplor UI, atau hasil ngulik yang paling kamu suka.</p>
-      </div>
+  <!-- ═══ ARSIP MBG ═══ -->
+<section class="section" id="gallery">
+  <div class="section-head reveal">
+    <div>
+      <div class="section-kicker">GALERI 3D</div>
+     <h2 class="section-title">Galeri visual karakter kartun 3D alias MBG simpanan aku.</h2>
+    </div>
+    <p class="section-note">Gak tahu dari kartun apaan, asal ambil dari Pinterest biar web ini kelihatan ada estetiknya dikit, gak cuma yapping doang.</p>
+  </div>
+  
+  <div class="gallery-grid">
+    <!-- Gallery 1 -->
+    <div class="gallery-item reveal">
+      <img class="gallery-img" src="https://thumbs2.imgbox.com/ff/79/RAdJVJPW_t.jpg" alt="koleksi MBG" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
+      <span class="gallery-label">MBG Spek Default 🤭</span>
+    </div>
+    
+    <!-- Gallery 2 -->
+    <div class="gallery-item reveal">
+      <img class="gallery-img" src="https://thumbs2.imgbox.com/f4/05/xZDnN33v_t.jpg" alt="kartun 3d random" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
+      <span class="gallery-label">Varian Random 🫣</span>
+    </div>
+    
+    <!-- Gallery 3 -->
+    <div class="gallery-item reveal">
+      <img class="gallery-img" src="https://thumbs2.imgbox.com/9c/89/u64jcWSU_t.jpg" alt="visual aesthetic" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
+      <span class="gallery-label">Paling Anggun 🥹</span>
+    </div>
+    
+    <!-- Gallery 4 -->
+    <div class="gallery-item reveal">
+      <img class="gallery-img" src="https://thumbs2.imgbox.com/6e/ae/NGTlETD8_t.jpg" alt="pinterest find" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
+      <span class="gallery-label">Hasil Nyari di Beranda 😱</span>
+    </div>
+    
+    <!-- Gallery 5 -->
+    <div class="gallery-item reveal">
+      <img class="gallery-img" src="https://thumbs2.imgbox.com/06/87/fY3itGU3_t.jpg" alt="3d girl character" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
+      <span class="gallery-label">Stok Jam 2 Subuh 🥰</span>
+    </div>
+    
+    <!-- Gallery 6 -->
+    <div class="gallery-item reveal">
+      <img class="gallery-img" src="https://thumbs2.imgbox.com/8c/a3/XPzQ1z3N_t.jpg" alt="hasil gabut" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
+      <span class="gallery-label">Pajangan Utama 🤗</span>
+    </div>
+  </div>
+</section>
 
-      <div class="gallery-grid">
-        <div class="gallery-item reveal"><span class="gallery-label">warna berisik</span></div>
-        <div class="gallery-item reveal"><span class="gallery-label">komponen lucu</span></div>
-        <div class="gallery-item reveal"><span class="gallery-label">motion test</span></div>
-        <div class="gallery-item reveal"><span class="gallery-label">wireframe jam 2 pagi</span></div>
-        <div class="gallery-item reveal"><span class="gallery-label">random UI yang berhasil</span></div>
-        <div class="gallery-item reveal"><span class="gallery-label">ide yang jadi project</span></div>
-      </div>
-    </section>
-
-    <!-- ═══ FUN FACTS ═══ -->
+  <!-- ═══ FUN FACTS ═══ -->
     <section class="section" id="fun">
       <div class="section-head reveal">
         <div>
           <div class="section-kicker">DATA NGGAK TERLALU ILMIAH</div>
-          <h2 class="section-title">Angka-angka yang mungkin tidak peer-reviewed, tapi cukup menggambarkan suasana.</h2>
+          <h2 class="section-title">Angka random hasil ngasal yang gak masuk akal, tapi cukup menggambarkan keadaan.</h2>
         </div>
       </div>
 
       <div class="facts-grid">
-        <article class="fact-card reveal"><strong>34</strong><h3>Tab terbuka</h3><p>Katanya riset. Sebagian memang riset. Sebagian lupa ditutup sejak minggu lalu.</p></article>
-        <article class="fact-card reveal"><strong>2px</strong><h3>Masalah serius</h3><p>Margin kecil, dampak besar. Setidaknya di kepalaku begitu. Tetanggaku bingung.</p></article>
-        <article class="fact-card reveal"><strong>6x</strong><h3>Ganti warna</h3><p>Sebelum akhirnya balik ke warna pertama sambil bilang "ini emang yang terbaik".</p></article>
-        <article class="fact-card reveal"><strong>99%</strong><h3>Suka detail</h3><p>1% sisanya pura-pura santai biar kelihatan normal di depan orang.</p></article>
+        <article class="fact-card reveal"><strong>34</strong><h3>Tab browser</h3><p>Alasannya buat riset kodingan. Padahal setengahnya cuma tutorial yang lupa ditutup dari minggu lalu.</p></article>
+        <article class="fact-card reveal"><strong>2px</strong><h3>Masalah serius</h3><p>Jarak margin geser dikit langsung bikin kepikiran sampai subuh, padahal orang lain gak bakal sadar.</p></article>
+        <article class="fact-card reveal"><strong>6x</strong><h3>Ganti warna</h3><p>Udah capek-capek nyari kombinasi warna baru, ujung-ujungnya balik ke warna pertama sambil bilang "nah ini pas".</p></article>
+        <article class="fact-card reveal"><strong>99%</strong><h3>Suka detail</h3><p>Sengaja dibikin over-detail biar kelihatan niat, sisanya pasrah aja kalau kodingannya tiba-tiba eror.</p></article>
       </div>
     </section>
 
-    <!-- ═══ FAQ ═══ -->
+  <!-- ═══ FAQ ═══ -->
     <section class="section" id="faq">
       <div class="section-head reveal">
         <div>
@@ -1085,55 +1529,79 @@ img{
 
       <div class="faq-list">
         <div class="faq-item reveal">
-          <button class="faq-btn" type="button">Ini portfolio serius atau bercanda?<span class="faq-plus">+</span></button>
-          <div class="faq-panel"><p>Dua-duanya. Serius di kualitas kode dan desainnya, santai di cara ngomongnya. Biar nggak terasa seperti halaman yang takut punya kepribadian sendiri.</p></div>
+          <button class="faq-btn" type="button">Eh, MBG di atas tadi apaan, pacar kamu?<span class="faq-plus">+</span></button>
+          <div class="faq-panel"><p>Bukan, itu fiktif semua. Cuma kartun 3D random dari Pinterest yang aku judulin asal biar lucu. Yang real life gak aku tampilin di sini, biar tetep jadi privasi aku sendiri.</p></div>
         </div>
         <div class="faq-item reveal">
-          <button class="faq-btn" type="button">Kamu paling suka bagian apa dari bikin website?<span class="faq-plus">+</span></button>
-          <div class="faq-panel"><p>Bagian saat halaman yang tadinya kosong mulai terasa hidup. Apalagi kalau hover kecilnya pas, transisinya nggak lebay, dan timing animasinya masuk ke jiwa. Itu tuh satisfying banget.</p></div>
+          <button class="faq-btn" type="button">Bagian paling enak pas ngoding tu yang mana sih?<span class="faq-plus">+</span></button>
+          <div class="faq-panel"><p>Pas halaman yang tadinya kosong mulai kerasa ada nyawanya. Hover-nya pas, transisinya gak lebay, timing animasinya klik di kepala. Itu rasanya kayak menang kecil tiap hari kerja.</p></div>
         </div>
         <div class="faq-item reveal">
-          <button class="faq-btn" type="button">Kalau ada bug gimana?<span class="faq-plus">+</span></button>
-          <div class="faq-panel"><p>Fase 1: kesal dulu sebentar. Fase 2: cari penyebabnya sambil buka 12 tab Stack Overflow. Fase 3: ketemu solusinya dari jawaban yang sama sekali nggak nyambung. Fase 4: senang luar biasa. Siklus klasik.</p></div>
+          <button class="faq-btn" type="button">Kalau ketemu bug, reaksi kamu gimana?<span class="faq-plus">+</span></button>
+          <div class="faq-panel"><p>Emosi dulu bentar, terus buka belasan tab buat nyari penyebabnya. Ujung-ujungnya solusinya ketemu dari jawaban yang sama sekali gak nyambung sama error aku, tapi entah kenapa kepake. Udah jadi siklus rutin sih.</p></div>
         </div>
         <div class="faq-item reveal">
-          <button class="faq-btn" type="button">Kenapa nggak pakai framework kayak React atau Vue?<span class="faq-plus">+</span></button>
-          <div class="faq-panel"><p>Bisa, tapi vanilla JavaScript itu seru karena kamu harus ngerti beneran cara kerjanya. Kayak masak dari bahan mentah dibanding pakai bumbu instan—hasilnya bisa sama enaknya, tapi ilmunya beda.</p></div>
+          <button class="faq-btn" type="button">Kenapa gak pake React atau Vue aja biar gampang?<span class="faq-plus">+</span></button>
+          <div class="faq-panel"><p>Bisa sih, tapi pake vanilla JS bikin aku ngerti beneran apa yang kejadian di balik layar. Kayak masak dari bahan mentah dibanding pake bumbu instan, hasilnya bisa mirip tapi prosesnya beda jauh.</p></div>
         </div>
         <div class="faq-item reveal">
-          <button class="faq-btn" type="button">Bisa diajak collab?<span class="faq-plus">+</span></button>
-          <div class="faq-panel"><p>Bisa banget! Kalau ada project web, UI/UX, motion design, atau sekedar mau diskusi ide, kirim aja pesan ke bagian kontak di bawah. Aku suka project yang ada tantangannya.</p></div>
+          <button class="faq-btn" type="button">Kalau mau ngajak kerja bareng, gimana caranya?<span class="faq-plus">+</span></button>
+          <div class="faq-panel"><p>Tinggal chat aja lewat kontak di bawah. Mau diskusi proyek web, UI/UX, motion, atau cuma mau ngobrol ide juga gapapa. Aku lebih suka proyek yang ada tantangannya dibanding yang monoton.</p></div>
         </div>
       </div>
     </section>
 
-    <!-- ═══ CONTACT ═══ -->
+   <!-- ═══ CONTACT ═══ -->
     <section class="section" id="contact">
       <div class="contact-box reveal">
         <div>
           <div class="section-kicker">KONTAK</div>
-          <h2>Yuk bikin sesuatu yang nggak hambar.</h2>
-          <p class="hero-copy">Punya ide, project seru, ajakan collab, atau cuma mau bilang "animasi tombolnya niat juga"? Kirim aja. Aku senang ngobrol soal desain, kode, dan hal-hal random yang entah kenapa jadi project sungguhan.</p>
+          <h2>Yuk, ngobrol bareng aku.</h2>
+          <p class="hero-copy">Ada ide gila, project bareng, atau cuma pengen bilang "eh tombolnya pas banget pas di-hover"? Gas chat aja. Aku emang gampang excited kalau udah ngomongin desain, kode, sama hal-hal receh yang entah kenapa ujung-ujungnya jadi project beneran.</p>
           <div class="contact-actions">
-            <a class="btn pink magnetic" href="mailto:emailzax@example.com">emailzax@example.com</a>
-            <a class="btn secondary magnetic" href="#">Download CV (santai)</a>
+            <a class="btn pink magnetic" href="mailto:zaxtamvan@ghostmail.com">zaxtamvan@ghostmail.com</a>
+          <a class="btn secondary magnetic" href="https://cdn.aceimg.com/YNeuPDjky.png" target="_blank" rel="noopener noreferrer">Download CV (santai)</a>
           </div>
         </div>
 
         <form class="contact-form" id="contactForm">
-          <input class="field" type="text" placeholder="Nama kamu siapa?" aria-label="Nama" required />
-          <input class="field" type="email" placeholder="Email kamu (nggak dikirim spam)" aria-label="Email" required />
-          <textarea class="field" placeholder="Ceritain idenya sedikit... atau banyak, aku suka baca." aria-label="Pesan" required></textarea>
-          <button class="btn mint magnetic" type="submit">Kirim pesan ✉️</button>
+          <input class="field" type="text" placeholder="Nama kamu apa nih?" aria-label="Nama" required />
+          <input class="field" type="email" placeholder="Email kamu (gak bakal aku spam, promise)" aria-label="Email" required />
+          <textarea class="field" placeholder="Cerita dikit soal idenya... atau panjang juga gapapa, aku betah baca." aria-label="Pesan" required></textarea>
+          <button class="btn mint magnetic" type="submit" id="sendBtn">Kirim aja</button>
         </form>
       </div>
     </section>
   </main>
 
   <footer>
-    <span>© 2026 Zax Tamvan. Dibuat dengan niat, rasa penasaran, dan revisi kecil yang tidak pernah kecil.</span>
+    <span>© 2026 Zax Aja.</span>
     <a href="#home">↑ Balik ke atas</a>
   </footer>
+
+   <!-- ═══ DIALOG MODAL POPUP ═══ -->
+  <dialog id="projectDialog" class="project-modal">
+    <div class="modal-head">
+      <div class="modal-dots"><span></span><span></span></div>
+      <h3 id="dialogTitle">Status Projek</h3> 
+    </div>
+    <div class="modal-body">
+      <p id="dialogDesc">Detail isi pesan popup bakal muncul di sini.</p>
+      <button id="closeDialogBtn" class="btn pink magnetic" type="button">Oke, Paham Zax</button>
+    </div>
+  </dialog>
+
+  <!-- ═══ DIALOG KHUSUS CONTACT ═══ -->
+<dialog id="contactDialog" class="project-modal">
+  <div class="modal-head" style="background: var(--mint);">
+    <div class="modal-dots"><span></span><span></span></div>
+   <h3 id="contactDialogTitle" style="color: black;">Pesan Terkirim 📨</h3>
+  </div>
+  <div class="modal-body">
+    <p id="contactDialogDesc">Makasih udah mau cerita, Zax bakal baca pesan kamu secepatnya.</p>
+    <button id="closeContactDialogBtn" class="btn pink magnetic" type="button">Oke, Paham Zax</button>
+  </div>
+</dialog>
 
   <script>
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1303,8 +1771,14 @@ img{
       });
     });
 
+    // Deteksi perangkat mobile
+function isMobile() {
+  return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|BlackBerry|IEMobile/i.test(navigator.userAgent);
+}
+
     // ─── CONFETTI BURST ───
     function burstConfetti(x, y) {
+     if (prefersReduced || isMobile()) return; 
       if (prefersReduced) return;
       const colors = ["#ffd84d","#74efbd","#68c7ff","#ff7a59","#a58bff","#ff77b7","#c8f653"];
       for (let i = 0; i < 42; i++) {
@@ -1326,12 +1800,45 @@ img{
       btn.addEventListener("click", (e) => burstConfetti(e.clientX, e.clientY));
     });
 
-    // ─── CONTACT FORM ───
-    document.getElementById("contactForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      burstConfetti(window.innerWidth / 2, window.innerHeight / 2);
-      e.currentTarget.reset();
-    });
+// ─── CONTACT FORM ───
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  
+  const btn = document.getElementById("sendBtn");
+  const originalText = btn.textContent;
+  const form = e.currentTarget;
+  
+  // Ubah tombol jadi loading
+  btn.textContent = "⏳ Mengirim...";
+  btn.disabled = true;
+  btn.style.opacity = "0.7";
+  btn.style.cursor = "not-allowed";
+  
+  // Simulasi proses kirim (2 detik)
+  setTimeout(function() {
+    // Balikin tombol ke semula
+    btn.textContent = originalText;
+    btn.disabled = false;
+    btn.style.opacity = "1";
+    btn.style.cursor = "pointer";
+    
+    // Reset form
+    form.reset();
+    
+    // Confetti
+    burstConfetti(window.innerWidth / 2, window.innerHeight / 2);
+    
+    // Tampilin dialog
+    var dialog = document.getElementById("contactDialog");
+    var titleEl = document.getElementById("contactDialogTitle");
+    var descEl = document.getElementById("contactDialogDesc");
+    
+    if (titleEl) titleEl.textContent = "Pesan Terkirim ✅️";
+    if (descEl) descEl.textContent = "Makasih udah mau cerita, Zax bakal baca pesan kamu secepatnya.";
+    if (dialog) dialog.showModal();
+    
+  }, 2000);
+});
 
     // ─── DRAG-TO-SCROLL MARQUEE (desktop) ───
     const marquee = document.getElementById("toolsMarquee");
@@ -1371,9 +1878,110 @@ img{
     marquee.style.scrollbarWidth = "none";
     marquee.addEventListener("scroll", () => {});
 
+    // Biar gambar loading smooth
+document.querySelectorAll('.avatar-img').forEach(img => {
+  // Pas gambar mulai loading
+  img.style.opacity = '0';
+  
+  // Pas gambar selesai loading
+  img.onload = function() {
+    this.style.opacity = '1';
+    this.style.background = 'none';
+    this.style.animation = 'face 4s ease-in-out infinite';
+  };
+  
+  // Kalau gambar gagal loading
+  img.onerror = function() {
+    this.style.background = 'linear-gradient(135deg, #ff7a59, #ffd84d)';
+    this.style.animation = 'face 4s ease-in-out infinite';
+    this.style.opacity = '1';
+    this.alt = 'Foto gagal dimuat';
+  };
+});
+
+// ─── LOGIKA POPUP DIALOG PROJEK ───
+document.addEventListener("DOMContentLoaded", () => {
+    const projectDialog = document.getElementById("projectDialog");
+    const dialogTitle = document.getElementById("dialogTitle");
+    const dialogDesc = document.getElementById("dialogDesc");
+    const closeDialogBtn = document.getElementById("closeDialogBtn");
+
+    // Tangkap semua tombol projek yang punya class 'project-btn'
+    document.querySelectorAll(".project-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault(); // Mencegah link '#' melompat atau ngereload halaman
+        
+        // Ambil teks kustom yang udah kita taruh di atribut tombol tadi
+        const titleText = btn.getAttribute("data-title") || "Status Projek";
+        const descText = btn.getAttribute("data-desc") || "Projek ini masih dalam tahap pengembangan.";
+        
+        // Suntik teksnya ke dalem dialog
+        dialogTitle.textContent = titleText;
+        dialogDesc.textContent = descText;
+        
+        // Munculkan dialog dengan animasi bawaan browser
+        projectDialog.showModal();
+      });
+    });
+
+    // Fungsi buat nutup dialog pas tombol 'Oke' diklik
+    closeDialogBtn.addEventListener("click", () => {
+      projectDialog.close();
+    });
+
+    // Tambahan: pencet area luar dialog (backdrop) buat nutup otomatis
+    projectDialog.addEventListener("click", (e) => {
+      const dialogDimensions = projectDialog.getBoundingClientRect();
+      if (
+        e.clientX < dialogDimensions.left ||
+        e.clientX > dialogDimensions.right ||
+        e.clientY < dialogDimensions.top ||
+        e.clientY > dialogDimensions.bottom
+      ) {
+        projectDialog.close();
+      }
+    });
+});
+
+document.querySelectorAll('.preview-img').forEach(img => {
+ 
+  if (img.complete) {
+    img.classList.add('loaded');
+  }
+  img.onerror = function() {
+    this.style.background = 'linear-gradient(135deg, #ff7a59, #ffd84d)';
+    this.classList.add('loaded');
+    this.alt = 'Gambar gagal dimuat';
+  };
+});
+
+// ─── CLOSE CONTACT DIALOG ───
+document.getElementById("closeContactDialogBtn").addEventListener("click", () => {
+  document.getElementById("contactDialog").close();
+});
+
+// Klik di luar dialog buat nutup
+document.getElementById("contactDialog").addEventListener("click", (e) => {
+  const dialog = document.getElementById("contactDialog");
+  const rect = dialog.getBoundingClientRect();
+  if (
+    e.clientX < rect.left ||
+    e.clientX > rect.right ||
+    e.clientY < rect.top ||
+    e.clientY > rect.bottom
+  ) {
+    dialog.close();
+  }
+});
+
+
 document.addEventListener("contextmenu", e => e.preventDefault());
 document.addEventListener("dragstart", e => e.preventDefault());
 
+
   </script>
+
+ 
+
 </body>
 </html>
