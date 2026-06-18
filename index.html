@@ -749,40 +749,6 @@ img{
   }
 }
 
-    /* HP kecil (di bawah 480px) */
-/* HP kecil 480px ke bawah */
-@media (max-width: 480px) {
-  .project-card .preview-img {
-    height: 110px !important;
-  }
-  .project-body h3 {
-    font-size: 12px !important;
-  }
-  .project-body p {
-    display: none; !important;
-    font-size: 10px !important;
-    -webkit-line-clamp: 2;
-  }
-  .project-meta .pill {
-    font-size: 8px !important;
-    padding: 2px 5px !important;
-  }
-  .project-card .btn {
-    font-size: 10px !important;
-    padding: 4px 10px !important;
-    min-height: 28px !important;
-  }
-}
-  .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-  }
-  .gallery-label {
-    font-size: 10px;
-    padding: 4px 8px;
-  }
-}
-
 /* Hover effect */
 .gallery-item:hover {
   transform: translateY(-9px) rotate(.55deg);
@@ -912,11 +878,9 @@ img{
     }
 
     @media (max-width: 780px) {
-       aspect-ratio: 1/1 !important;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
+       .preview-img {
+         aspect-ratio: 1 / 1; 
+    height: 180px;
   }
       .nav { inset: 12px 12px auto; }
       .nav-inner { border-radius: 24px; }
@@ -938,64 +902,11 @@ img{
       .sticker.one { left: 0; }
       .sticker.two { right: 0; }
       .disclaimer { grid-template-columns: 1fr; }
-      .skills-grid,.facts-grid, .gallery-grid { 
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 10px;
-  }
-  .gallery-item {
-    aspect-ratio: 1/1 !important;
-    min-height: auto !important;
-  }
-}
+      .skills-grid,.facts-grid,.gallery-grid { grid-template-columns: 1fr; }
       .gallery-item,.gallery-item:nth-child(n) { grid-column: auto; min-height: 170px; }
       footer { flex-direction: column; }
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 12px;
-  }
- .projects-grid { 
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 10px;
-  }
-  .project-card {
-    padding: 10px !important;
-    min-height: auto !important;
-  }
-  .project-card .preview-img {
-    aspect-ratio: 1/1 !important;
-    height: 130px !important;
-    border-radius: 12px;
-  }
-  .project-body {
-    padding: 10px 4px 4px !important;
-  }
-  .project-body h3 {
-    font-size: 14px !important;
-    margin: 0 0 4px 0 !important;
-  }
-  .project-body p {
-     display: none; !important;
-    font-size: 11px !important;
-    margin: 0 0 8px 0 !important;
-    line-height: 1.3 !important;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  .project-meta {
-    margin: 6px 0 8px !important;
-    gap: 4px !important;
-  }
-  .project-meta .pill {
-    font-size: 9px !important;
-    padding: 3px 6px !important;
-  }
-  .project-card .btn {
-    min-height: 32px !important;
-    padding: 6px 12px !important;
-    font-size: 11px !important;
-  }
-}
+      .projects-grid { grid-template-columns: 1fr; }
+    }
 
     @media (max-width: 520px) {
       .brand span:last-child { display: none; }
