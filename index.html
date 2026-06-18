@@ -535,7 +535,7 @@ img{
 /* Skeleton loading buat project images */
 .preview-img {
   width: 100%;
-  aspect-ratio: 1 / 1; !important;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
   border: 2px solid var(--ink);
   border-radius: 18px;
@@ -565,9 +565,12 @@ img{
   transform: scale(1.02);
   box-shadow: 0 8px 24px rgba(23,21,31,.15);
 }
-    .project-body { padding: 18px 6px 6px; }
+    .project-card { display: flex; flex-direction: column; }
+    .project-body { padding: 14px 6px 6px; display: flex; flex-direction: column; flex: 1; }
     .project-body h3 { font-size: 28px; }
-    .project-meta,.filter-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 18px; }
+    .project-body p { flex: 1; }
+    .project-body .btn { margin-top: auto; align-self: flex-start; }
+    .project-meta,.filter-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 14px; }
     .pill,.filter-btn {
       display: inline-flex; align-items: center; min-height: 30px; padding: 7px 10px;
       border-radius: 999px; border: 1px solid rgba(23,21,31,.12);
@@ -749,6 +752,43 @@ img{
   }
 }
 
+    /* HP kecil (di bawah 480px) */
+/* HP kecil 480px ke bawah */
+@media (max-width: 480px) {
+  .project-card .preview-img {
+    height: auto !important;
+    aspect-ratio: 16/9 !important;
+  }
+  .project-body h3 {
+    font-size: 12px !important;
+  }
+  .project-body p {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 10px !important;
+  }
+  .project-meta .pill {
+    font-size: 8px !important;
+    padding: 2px 5px !important;
+  }
+  .project-card .btn {
+    font-size: 10px !important;
+    padding: 4px 10px !important;
+    min-height: 28px !important;
+  }
+}
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .gallery-label {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+}
+
 /* Hover effect */
 .gallery-item:hover {
   transform: translateY(-9px) rotate(.55deg);
@@ -878,9 +918,11 @@ img{
     }
 
     @media (max-width: 780px) {
-       .preview-img {
-         aspect-ratio: 1 / 1; 
-    height: 180px;
+       aspect-ratio: 1/1 !important;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
   }
       .nav { inset: 12px 12px auto; }
       .nav-inner { border-radius: 24px; }
@@ -902,11 +944,67 @@ img{
       .sticker.one { left: 0; }
       .sticker.two { right: 0; }
       .disclaimer { grid-template-columns: 1fr; }
-      .skills-grid,.facts-grid,.gallery-grid { grid-template-columns: 1fr; }
+      .skills-grid,.facts-grid, .gallery-grid { 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px;
+  }
+  .gallery-item {
+    aspect-ratio: 1/1 !important;
+    min-height: auto !important;
+  }
+}
       .gallery-item,.gallery-item:nth-child(n) { grid-column: auto; min-height: 170px; }
       footer { flex-direction: column; }
-      .projects-grid { grid-template-columns: 1fr; }
-    }
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 12px;
+  }
+ .projects-grid { 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px;
+  }
+  .project-card {
+    padding: 10px !important;
+    min-height: auto !important;
+  }
+  .project-card .preview-img {
+    aspect-ratio: 16/9 !important;
+    height: auto !important;
+    border-radius: 12px;
+  }
+  .project-body {
+    padding: 10px 4px 4px !important;
+  }
+  .project-body h3 {
+    font-size: 14px !important;
+    margin: 0 0 4px 0 !important;
+  }
+  .project-body p {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 11px !important;
+    margin: 0 0 8px 0 !important;
+    line-height: 1.4 !important;
+  }
+  .project-meta {
+    margin: 6px 0 8px !important;
+    gap: 4px !important;
+    flex-wrap: wrap;
+  }
+  .project-meta .pill {
+    font-size: 9px !important;
+    padding: 3px 6px !important;
+    white-space: nowrap;
+  }
+  .project-card .btn {
+    min-height: 32px !important;
+    padding: 6px 12px !important;
+    font-size: 11px !important;
+    width: 100% !important;
+    justify-content: center;
+  }
+}
 
     @media (max-width: 520px) {
       .brand span:last-child { display: none; }
@@ -1247,7 +1345,7 @@ img{
           <img class="preview-img" src="https://cdn.aceimg.com/hRoA0TFLR.jpg" alt="Nama Project" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
           <div class="project-body">
             <h3>Zax Archive</h3>
-            <p>Portal berbasis webview yang ngarsipkan sisi internet yang gak bakal dibahas media mainstream, berita brutality, dokumentasi gelap, konten yang bikin kamu diem sambil mikir "kok ada ya ini."</p>
+            <p>Portal webview yang ngarsipkan sisi internet yang jarang dibahas — berita brutality, dokumentasi gelap, konten yang bikin diem sambil mikir.</p>
             <div class="project-meta"><span class="pill">Webview</span><span class="pill">Dark Web Style</span><span class="pill">18+ Only</span></div>
             <a href="#" class="btn mint magnetic project-btn"
                data-title="Zax Archive"
@@ -1259,7 +1357,7 @@ img{
           <img class="preview-img" src="https://cdn.aceimg.com/Q9g46iTJX.jpg" alt="Nama Project" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
           <div class="project-body">
             <h3>Simulasi UI Banking</h3>
-            <p>Aplikasi Android fiktif yang tampilannya nyerupaim-banking asli. Dibuat murni pake HP dan Sketchware gara-gara penasaran sama gabut yang kebablasan jadi serius.</p>
+            <p>Aplikasi Android fiktif yang tampilannya mirip m-banking asli. Dibuat pake HP dan Sketchware gara-gara iseng yang kebablasan jadi serius.</p>
             <div class="project-meta"><span class="pill">Android</span><span class="pill">Java</span><span class="pill">Sketchware</span></div>
             <a href="#" class="btn mint magnetic project-btn"
                data-title="Simulasi UI Banking"
@@ -1271,7 +1369,7 @@ img{
           <img class="preview-img" src="https://cdn.aceimg.com/jT3Qb5GXL.jpg" alt="Nama Project" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
           <div class="project-body">
             <h3>Landing Page</h3>
-            <p>Web promosi eksperimen yang isinya penuh drama, hover ngeselin, stiker melayang, transisi animasi yang sengaja dibikin lebay buat ngetes seberapa sabar user-nya.</p>
+            <p>Web promosi penuh drama — hover ngeselin, stiker melayang, animasi lebay yang sengaja dibikin buat ngetes kesabaran user.</p>
             <div class="project-meta"><span class="pill">Web</span><span class="pill">CSS</span><span class="pill">Full Drama</span></div>
             <a href="#" class="btn mint magnetic project-btn"
                data-title="Landing Page"
@@ -1283,7 +1381,7 @@ img{
           <img class="preview-img" src="https://cdn.aceimg.com/L3lzzjwF2.jpg" alt="Nama Project" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
           <div class="project-body">
             <h3>Script Python Random</h3>
-            <p>Kumpulan script automasi kecil di Terminal yang awalnya lahir dari iseng jam malam, tapi somehow kepake beneran. Ada yang beneran berguna, ada yang absurd, yang penting pas dijalanin gak error.</p>
+            <p>Kumpulan script automasi kecil yang lahir dari iseng jam malam tapi kepake beneran. Ada yang berguna, ada yang absurd — yang penting gak error.</p>
             <div class="project-meta"><span class="pill">Python</span><span class="pill">Terminal</span><span class="pill">Scripting</span></div>
             <a href="#" class="btn mint magnetic project-btn"
                data-title="Script Python Random"
@@ -1295,7 +1393,7 @@ img{
           <img class="preview-img" src="https://cdn.aceimg.com/pDTmfqSxU.jpg" alt="Nama Project" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
           <div class="project-body">
             <h3>Dashboard Anti Pusing</h3>
-            <p>Eksperimen layout dashboard yang padat tapi tetep bisa dibaca manusia normal, biar informasinya gak ngumpet kayak petak umpet atau malah bikin user pengen banting mouse.</p>
+            <p>Eksperimen layout dashboard yang padat tapi tetep bisa dibaca manusia normal — info gak ngumpet, user gak pengen banting mouse.</p>
             <div class="project-meta"><span class="pill">Dashboard</span><span class="pill">UX</span><span class="pill">JS Mentah</span></div>
             <a href="#" class="btn mint magnetic project-btn"
                data-title="Dashboard Anti Pusing"
@@ -1307,7 +1405,7 @@ img{
           <img class="preview-img" src="https://cdn.aceimg.com/QFfzjXuMt.jpg" alt="Nama Project" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
           <div class="project-body">
             <h3>Motion Playground</h3>
-            <p>Tempat eksperimen timing spring, reveal animation, sama efek-efek micro gaib yang bikin halaman web kerasa lebih hidup, jujur kadang lebih menarik dari kehidupan nyata aku sendiri.</p>
+            <p>Tempat eksperimen timing spring, reveal animation, sama efek micro gaib yang bikin web kerasa hidup — jujur lebih menarik dari kehidupan nyata aku.</p>
             <div class="project-meta"><span class="pill">Creative</span><span class="pill">CSS</span><span class="pill">Eksperimen</span></div>
             <a href="#" class="btn mint magnetic project-btn"
                data-title="Motion Playground"
