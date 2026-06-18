@@ -445,11 +445,14 @@ img{
       width: 58px; height: 58px; display: grid; place-items: center;
       border: 2px solid var(--ink); border-radius: 19px;
       background: var(--sun); box-shadow: 0 6px 0 rgba(23,21,31,.82);
-      font-weight: 950; transform: rotate(-5deg);
-      font-family: 'Impact', 'Arial Black', sans-serif; 
+      font-weight: 950 !important; transform: rotate(-5deg); 
+      font-family: 'Impact', 'Arial Black', sans-serif !important; 
   letter-spacing: 1px; 
   text-transform: uppercase;
     }
+
+    
+    
     .disclaimer p { margin: 4px 0 0; color: var(--muted); font-weight: 750; line-height: 1.65; }
     .tiny-btn {
       min-width: 44px; height: 44px; border: 2px solid var(--ink); border-radius: 15px;
@@ -752,12 +755,17 @@ img{
   }
 }
 
-    /* HP kecil (di bawah 480px) */
-/* HP kecil 480px ke bawah */
+
+    @media (max-width: 780px) {
+  .project-card .preview-img {
+    height: auto !important;
+    aspect-ratio: 1/1 !important;
+  }
+    
 @media (max-width: 480px) {
   .project-card .preview-img {
     height: auto !important;
-    aspect-ratio: 16/9 !important;
+    aspect-ratio: 1/1 !important;
   }
   .project-body h3 {
     font-size: 12px !important;
@@ -1338,9 +1346,7 @@ img{
           <img class="preview-img" src="https://cdn.aceimg.com/hRoA0TFLR.jpg" alt="Nama Project" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
           <div class="project-body">
             <h3>Zax Archive</h3>
-            <p>Portal webview yang ngarsipkan sisi internet yang jarang dibahas — berita brutality, dokumentasi gelap, konten yang bikin diem sambil mikir.</p>
-            <div class="project-meta"><span class="pill">Webview</span><span class="pill">Dark Web Style</span><span class="pill">18+ Only</span></div>
-            <a href="#" class="btn mint magnetic project-btn"
+           <a href="#" class="btn mint magnetic project-btn"
                data-title="Zax Archive"
                data-desc="Link download Aplikasi di saluran WA ku yaa.">Download</a>
           </div>
@@ -1350,9 +1356,7 @@ img{
           <img class="preview-img" src="https://cdn.aceimg.com/Q9g46iTJX.jpg" alt="Nama Project" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
           <div class="project-body">
             <h3>Simulasi UI Banking</h3>
-            <p>Aplikasi Android fiktif yang tampilannya mirip m-banking asli. Dibuat pake HP dan Sketchware gara-gara iseng yang kebablasan jadi serius.</p>
-            <div class="project-meta"><span class="pill">Android</span><span class="pill">Java</span><span class="pill">Sketchware</span></div>
-            <a href="#" class="btn mint magnetic project-btn"
+           <a href="#" class="btn mint magnetic project-btn"
                data-title="Simulasi UI Banking"
                data-desc="Mau intip saldo fiktif? Tinggal cek ig aku aja yaa.">Download</a>
           </div>
@@ -1362,9 +1366,7 @@ img{
           <img class="preview-img" src="https://cdn.aceimg.com/jT3Qb5GXL.jpg" alt="Nama Project" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
           <div class="project-body">
             <h3>Landing Page</h3>
-            <p>Web promosi penuh drama — hover ngeselin, stiker melayang, animasi lebay yang sengaja dibikin buat ngetes kesabaran user.</p>
-            <div class="project-meta"><span class="pill">Web</span><span class="pill">CSS</span><span class="pill">Full Drama</span></div>
-            <a href="#" class="btn mint magnetic project-btn"
+<a href="#" class="btn mint magnetic project-btn"
                data-title="Landing Page"
                data-desc="Demo landing page eksperimen ini belum dibuka untuk publik. Nanti link download atau live preview bakal dipasang kalau versi finalnya sudah rapi.">Download</a>
           </div>
@@ -1374,9 +1376,7 @@ img{
           <img class="preview-img" src="https://cdn.aceimg.com/L3lzzjwF2.jpg" alt="Nama Project" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
           <div class="project-body">
             <h3>Script Python Random</h3>
-            <p>Kumpulan script automasi kecil yang lahir dari iseng jam malam tapi kepake beneran. Ada yang berguna, ada yang absurd — yang penting gak error.</p>
-            <div class="project-meta"><span class="pill">Python</span><span class="pill">Terminal</span><span class="pill">Scripting</span></div>
-            <a href="#" class="btn mint magnetic project-btn"
+          <a href="#" class="btn mint magnetic project-btn"
                data-title="Script Python Random"
                data-desc="Kumpulan script ini masih dirapikan dulu biar aman dibagikan. Kalau sudah siap, bagian ini bakal jadi tempat link download atau repositorinya.">Download</a>
           </div>
@@ -1386,9 +1386,7 @@ img{
           <img class="preview-img" src="https://cdn.aceimg.com/pDTmfqSxU.jpg" alt="Nama Project" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
           <div class="project-body">
             <h3>Dashboard Anti Pusing</h3>
-            <p>Eksperimen layout dashboard yang padat tapi tetep bisa dibaca manusia normal — info gak ngumpet, user gak pengen banting mouse.</p>
-            <div class="project-meta"><span class="pill">Dashboard</span><span class="pill">UX</span><span class="pill">JS Mentah</span></div>
-            <a href="#" class="btn mint magnetic project-btn"
+           <a href="#" class="btn mint magnetic project-btn"
                data-title="Dashboard Anti Pusing"
                data-desc="Dashboard ini masih berupa showcase UI. Link demo akan ditambahkan setelah komponen, data contoh, dan interaksinya selesai dipoles.">Download</a>
           </div>
@@ -1398,9 +1396,7 @@ img{
           <img class="preview-img" src="https://cdn.aceimg.com/QFfzjXuMt.jpg" alt="Nama Project" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.background='linear-gradient(135deg, #ff7a59, #ffd84d)'; this.classList.add('loaded');" />
           <div class="project-body">
             <h3>Motion Playground</h3>
-            <p>Tempat eksperimen timing spring, reveal animation, sama efek micro gaib yang bikin web kerasa hidup — jujur lebih menarik dari kehidupan nyata aku.</p>
-            <div class="project-meta"><span class="pill">Creative</span><span class="pill">CSS</span><span class="pill">Eksperimen</span></div>
-            <a href="#" class="btn mint magnetic project-btn"
+         <a href="#" class="btn mint magnetic project-btn"
                data-title="Motion Playground"
                data-desc="Motion playground ini masih jadi tempat eksperimen animasi. Nanti kalau preset dan demo sudah stabil, link aksesnya bakal dipasang di sini.">Download</a>
           </div>
